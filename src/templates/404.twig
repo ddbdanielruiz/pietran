@@ -1,0 +1,27 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="banner-404">
+        <div class="container-left">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-6">
+                    <h1>Error 404</h1>
+                    <p><strong>Parece que estás perdido…</strong> La página que estabas visitando no existe o no está disponible.</p>
+                    <a href="{{ site.link }}" class="btn-custom animation">VOLVER AL INICIO</a>
+                </div>
+                <div class="col-12 col-md-12 col-lg-6">
+                    <div class="image">
+                        <div class="deco">
+                            <img src="../assets/images/hoja-1.png" alt="image" class="error-1">
+                            <img src="../assets/images/hoja-02.png" alt="image" class="error-2">
+                            <img src="../assets/images/hoja-3.png" alt="image" class="error-3">
+                        </div>
+                        <picture>
+                            <img src="../assets/images/foto.png" alt="image">
+                        </picture>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+
+<div class="item">
+    <div class="info-text">
+        <div class="start-section">
+            {% set rating = fn('find_wp_rating_by_comment_id', comment.id) %}
+            {% set half_star = false %}
+
+            {% for i in 1..5 %}
+                {% if i <= rating|round(0, 'floor') %}
+                    <img src="../../assets/images/full_star.svg" alt="star">
+                {% elseif not half_star and fn('is_float', rating) %}
+                    <img src="../../assets/images/half_star.svg" alt="star">
+                    {% set half_star = true %}
+                {% else %}
+                    <img src="../../assets/images/non_star.svg" alt="star">
+                {% endif %}
+            {% endfor %}
+        </div>
+        <p class="comment">{{ comment.comment_content|wpautop }}</p>
+        <div class="date">
+            <span>{{ comment.author.name }}</span>
+            <small>{{ comment.date }}</small>
+        </div>
+        <div class="resp">
+            <hr>
+                {% if comment.children %}
+                    <div class="replies">
+                    {% for child_comment in comment.children %}
+                        {% include 'reply.twig' with { comment:child_comment } %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+</div>

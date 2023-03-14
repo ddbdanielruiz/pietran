@@ -1,0 +1,41 @@
+<div class="modals__modal-opinion" style="display:none">
+    <div class="cap-close"></div>
+    <div class="container" class="comment-form">
+        <div class="close-opinions">
+            <img src="../../assets/images/xblue.svg" alt="ico">
+        </div>
+        <span class="tag">{{ post.title }}</span>
+        <h2>¡Tu opinión es muy importante para nosotros!</h2>
+
+        {% include "partial/comment-form.twig" %}
+
+        <div class="page-general__opinions">
+            <div class="container">
+                <div class="title">
+                    <h2>
+                        <span>Opiniones</span> 
+                        {% if post.type == 'producto' %} 
+                            del producto
+                        {% elseif post.type == 'receta' %}
+                            de la receta
+                        {% elseif post.type == 'post' %}
+                            del artículo
+                        {% endif %}
+                    </h2>
+                    <div class="arrow-custom"><img src="../../assets/images/izq2.svg" alt="icon" class="customPrevBtnm"> <img src="../../assets/images/derecha2.svg" alt="ico" class="customNextBtnm"></div>
+                </div>
+                <div class="parent-slide">
+                    <div class="container">
+                        <div class="opinions-slider-modal">
+                            <div class="owl-carousel owl-theme">
+                                {% for comment in post.comments %}
+                                    {% include "partial/comment.twig"  %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

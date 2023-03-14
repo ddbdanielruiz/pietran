@@ -1,0 +1,15 @@
+{% if rating is empty %}
+    {% set rating = 0 %}
+{% endif %}
+
+{% set half_star = false %}
+{% for i in 1..5 %}
+    {% if rating >= 1 and i <= rating|round(0, 'floor') %}
+        <img src="../../../assets/images/full_star.svg" alt="star">
+    {% elseif not half_star and fn('is_float', rating) %}
+        <img src="../../../assets/images/half_star.svg" alt="star">
+        {% set half_star = true %}
+    {% else %}
+        <img src="../../../assets/images/non_star.svg" alt="star">
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="13px" viewBox="0 0 11 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Flechas dobles_derecha Copy</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.109804 0 0 0 0 0.376471 0 0 0 0 0.278431 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="⭐️-Simbolos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Flechas-dobles_derecha-Copy" transform="translate(-109.000000, -14.000000)" filter="url(#filter-1)">
+            <g transform="translate(110.000000, 15.000000)">
+                <polyline id="Path-2-Copy" stroke="#F0F5DA" stroke-width="1.5" transform="translate(1.931251, 5.500000) scale(-1, 1) translate(-1.931251, -5.500000) " points="3.86250183 -7.12102897e-15 0 5.5 3.86250183 11"></polyline>
+                <polyline id="Path-2-Copy-2" stroke="#F0F5DA" stroke-width="1.5" transform="translate(7.068749, 5.500000) scale(-1, 1) translate(-7.068749, -5.500000) " points="9 -7.12102897e-15 5.13749817 5.5 9 11"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

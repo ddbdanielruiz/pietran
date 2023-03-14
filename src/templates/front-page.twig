@@ -1,0 +1,725 @@
+{% extends "base.twig" %}
+
+{% block content %}
+
+<div class="modals__modal-video">
+    <div class="capclose"></div>
+    <a href="#" class="close-m"><img src="/wp-content/themes/pietran/dist/assets/images/close-m.svg?ver=f3fcbe20" alt="ico"></a>
+    <iframe width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+{% set video_or_slider = post.meta('video_o_slider') %}
+{% if video_or_slider == 'Video' %}
+<div class="page-general__video-only">
+    <video autoplay playsinline loop muted poster="{{ Image(post.meta('imagen_cover')).src|tojpg }}">
+        {% if post.meta('video') %}
+            <source src="{{ post.meta('video') }}" type='video/mp4'>
+        {% endif %}
+
+        {% if post.meta('video_ogg') %}
+            <source src="{{ post.meta('video_ogg') }}" type="video/ogg">
+        {% endif %}
+
+        {% if post.meta('video_webm') %}
+            <source src="{{ post.meta('video_webm') }}" type='video/webm'>
+        {% endif %}
+    </video>
+    {% set enlace_video = post.meta('enlace_video') %}
+    {% if enlace_video %}
+    <div class="container">
+        <a href="{{ enlace_video.url }}" target="{{ enlace_video.target }}" class="btn-custom">{{ enlace_video.title }}</a>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+{% if video_or_slider != 'Video' %}
+<div class="page-general__slider-home">
+    <div class="slider-image-home">
+        <div class="owl-carousel owl-theme">
+            {% for slider in post.meta('contenido_slider') %}
+                {% if slider.acf_fc_layout == 'layout_1' %}
+                    <div class="item slide-1">
+                        {% set svg_1 = Image(slider.svg_1_decoracion_slider) %}
+                        {% set svg_2 = Image(slider.svg_2_decoracion_slider) %}
+
+                        {% if svg_1.src is not empty %}
+                            <div class="path">
+                                {{ get_file_content(svg_1.src) }}
+                            </div>
+                        {% endif %}
+                        {% if svg_2.src is not empty %}
+                            <div class="bottom-irregular">
+                                {{ get_file_content(svg_2.src) }}
+                            </div>
+                        {% endif %}
+
+                        {% set desktop_background = Image(slider.imagen_de_fondo_slider) %}
+                        {% set mobile_background = Image(slider.imagen_de_fondo_moviles_slider) %}
+
+                        {% if mobile_background.src is empty and desktop_background.src is not empty %}
+                            {% set mobile_background = desktop_background %}
+                        {% endif %}
+
+                        {% if desktop_background is not empty %}
+                            <picture>
+                                <!-- mobile -->
+                                <source srcset="{{ mobile_background.src|towebp(100) }}" media="(max-width: 680px)" type="image/webp">
+                                <source srcset="{{ mobile_background.src|tojpg }}" media="(max-width: 680px)" type="image/jpeg">
+        
+                                <!-- Desktop -->
+                                <source srcset="{{ desktop_background.src|towebp(100) }}" media="(min-width: 680px)" type="image/webp">
+                                <source srcset="{{ desktop_background.src|tojpg }}" media="(min-width: 680px)" type="image/jpeg">
+
+                                <img src="{{ desktop_background.src }}" alt="{{ desktop_background.alt }}">
+                            </picture>
+                        {% endif %}
+                    </div>
+                {% elseif slider.acf_fc_layout == 'layout_2' %}
+                    <div class="item slide-2">
+                        <picture>
+                            <img src="/wp-content/themes/pietran/dist/assets/images/tablitasn.png?ver=013bcf48" alt="image">
+                        </picture>
+                        <div class="big-image">
+                            <div class="big-relative">
+                
+                                {% for deco in slider.decoracion_slider %}
+                                    {% set deco_img = Image(deco.imagen) %}
+                                    <img src="{{ deco_img.src }}" alt="{{ deco_img.alt }}" class="f{{ loop.index }}" loading="lazy">
+                                {% endfor %}
+
+                                {% set positions = fn('random_top_and_left', slider.propiedades_slider|length) %}
+                                {% for prop in slider.propiedades_slider %}
+                                    {% set prop_img = Image(prop.propiedad) %}
+
+                                    <div class="boxdesk" style="top: {{ positions.left[loop.index0] }}%; left: {{ positions.top[loop.index0] }}%;">
+                                        <img src="{{ prop_img.src }}" alt="image">
+                                    </div>
+                                {% endfor %}
+
+                                {% for prop in slider.propiedades_slider %}
+                                    {% set prop_img = Image(prop.propiedad) %}
+
+                                    <div class="boxmobile" style="top: {{ positions.left[loop.index0] }}%; left: {{ positions.top[loop.index0] }}%;">
+                                        <img src="{{ prop_img.src }}" alt="image">
+                                    </div>
+                                {% endfor %}
+
+                                {% set image = Image(slider.imagen_slider) %}
+                                {% if image.src %}
+                                    <picture>
+                                        <source srcset="{{ image.src|resize(970, 721)|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ image.src|resize(970, 721)|tojpg }}" type="image/jpeg">
+                                        <img src="{{ image.src }}" alt="{{ image.alt }}">
+                                    </picture>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                {% elseif slider.acf_fc_layout == 'layout_3' %}
+                    <div class="item slide-3">
+                        {% set desktop_background = Image(slider.imagen_de_fondo_slider) %}
+                        {% set mobile_background = Image(slider.imagen_de_fondo_moviles_slider) %}
+
+                        {% if mobile_background.src is empty and desktop_background.src is not empty %}
+                            {% set mobile_background = desktop_background %}
+                        {% endif %}
+
+                        {% if desktop_background is not empty %}
+                            <picture>
+                                <!-- mobile -->
+                                <source srcset="{{ mobile_background.src|towebp(100) }}" media="(max-width: 680px)" type="image/webp">
+                                <source srcset="{{ mobile_background.src|tojpg }}" media="(max-width: 680px)" type="image/jpeg">
+        
+                                <!-- Desktop -->
+                                <source srcset="{{ desktop_background.src|towebp(100) }}" media="(min-width: 680px)" type="image/webp">
+                                <source srcset="{{ desktop_background.src|tojpg }}" media="(min-width: 680px)" type="image/jpeg">
+
+                                <img src="{{ desktop_background.src }}" alt="{{ desktop_background.alt }}">
+                            </picture>
+                        {% endif %}
+
+                        <div class="big-image">
+                            <div class="big-relative">
+                                {% set layer_images = Image(slider.capas_de_la_imagen) %}
+                                <div class="backfixed">
+                                    {% set l_image = Image(layer_images.imagen) %}
+                                    {% if l_image.src is not empty %}
+                                        <picture>
+                                            <img src="{{ l_image.src }}" alt="{{ l_image.alt }}" style="{{ layer_images.estilo }}">
+                                        </picture>
+                                    {% endif %}
+
+                                    {% set layer_1 = Image(layer_images.capa_1) %}
+                                    {% if layer_1.src is not empty %}
+                                        {{ get_file_content(layer_1.src) }}
+                                    {% endif %}
+                                </div>
+                                
+                                {% set image = Image(slider.imagen_slider) %}
+                                {% if image.src %}
+                                    <picture>
+                                        <source srcset="{{ image.src|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ image.src|tojpg }}" type="image/jpeg">
+
+                                        <img src="{{ image.src }}" alt="{{ image.alt }}" style="{{ slider.estilo_imagen }}">
+                                    </picture>
+                                {% endif %}
+
+                                {% set layer_2 = Image(layer_images.capa_2) %}
+                                {% if layer_2.src is not empty %}
+                                    {{ get_file_content(layer_2.src) }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% elseif slider.acf_fc_layout == 'layout_4' %}
+                    <div class="item slide-4">
+                        {% set desktop_image = Image(slider.imagen_slider) %}
+                        {% set mobile_image = Image(slider.imagen_mobile) %}
+
+                        {% if mobile_image.src is empty and desktop_image.src is not empty %}
+                            {% set mobile_image = desktop_image %}
+                        {% endif %}
+
+                        {% if desktop_image.src is not empty %}
+                            <picture>
+                                <!-- mobile -->
+                                <source srcset="{{ mobile_image.src|towebp(100) }}" media="(max-width: 680px)" type="image/webp">
+                                <source srcset="{{ mobile_image.src|tojpg }}" media="(max-width: 680px)" type="image/jpeg">
+        
+                                <!-- Desktop -->
+                                <source srcset="{{ desktop_image.src|towebp(100) }}" media="(min-width: 680px)" type="image/webp">
+                                <source srcset="{{ desktop_image.src|tojpg }}" media="(min-width: 680px)" type="image/jpeg">
+
+                                <img src="{{ desktop_image.src }}" alt="{{ desktop_image.alt }}">
+                            </picture>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="text-slider-home">
+            <div class="owl-carousel owl-theme">
+
+                {% for slider in post.meta('contenido_slider') %}
+                
+                    {% if slider.acf_fc_layout == 'layout_1' %}
+                        <div class="item item-1">
+                            <div class="box">
+                                {% if  slider.titulo_slider %}
+                                    <h2 class="animation">{{ slider.titulo_slider }}</h2>
+                                {% endif %}
+
+                                {% if slider.descripcion_corta_slider %}
+                                    <p class="animation">{{ slider.descripcion_corta_slider }}</p>
+                                {% endif %}
+                                
+                                {% if slider.url_del_video_slider %}
+                                    <a href="#" class="animation btn-custom btn-video" data-url="{{ fn('url_from_iframe', slider.url_del_video_slider) }}"><img src="/wp-content/themes/pietran/dist/assets/images/playmin.svg?ver=6508024e" alt="icon">MIRA EL VIDEO</a>
+                                {% endif %}
+                            </div>
+                        </div><!-- item -->
+
+                    {% elseif slider.acf_fc_layout == 'layout_2' %}
+                        {% set category = recipe.terms('category')|first %}
+                        <div class="item item-2">
+                            <div class="box">
+                                {% if category %}
+                                    <div class="tag animation" style="color: {{ category.meta('color') }}; border-color: {{ category.meta('color') }};">{{ category.name }}</div>
+                                {% endif %}
+                                <h2 class="animation">
+                                    {% if slider.texto_corto_slider %}<span>{{ slider.texto_corto_slider }}</span>{% endif %}
+                                    
+                                    {% if slider.titulo_slider %}
+                                        {{ slider.titulo_slider }}</h2>
+                                    {% endif %}
+                                
+                                {% if slider.descripcion_corta_slider %}
+                                    <p class="animation">{{ slider.descripcion_corta_slider }}</p>
+                                {% endif %}
+
+                                {% set product = slider.producto_slider %}
+                                {% if slider.producto_slider.id  %}
+                                    <a href="{{ product.link }}" class="btn-custom animation">VER PRODUCTO</a>
+                                {% endif %}
+                            </div>
+                        </div><!-- item -->
+                    {% elseif slider.acf_fc_layout == 'layout_3' %}
+                        <div class="item item-3">
+                            <div class="box">
+                                {% if slider.titulo_slider %}
+                                    <h2 class="animation">{{ slider.titulo_slider }}</h2>
+                                {% endif %}
+
+                                {% if slider.descripcion_corta_slider %}
+                                    <p class="animation">{{ slider.descripcion_corta_slider }}</p>
+                                {% endif %}
+
+                                {% if slider.enlace_slider %}
+                                    <a href="{{ slider.enlace_slider.url }}" target="{{ slider.enlace_slider.target }}" class="btn-blue">{{ slider.enlace_slider.title }}</a>
+                                {% endif %}
+                            </div>
+                        </div><!-- item -->
+                    {% elseif slider.acf_fc_layout == 'layout_4' %}
+                        <div class="item item-4">
+                            {% if slider.enlace_slider %}
+                                <div class="box">
+                                    <a href="{{ slider.enlace_slider.url }}" target="{{ slider.enlace_slider.target }}" class="btn-custom animation">{{ slider.enlace_slider.title }}</a>
+                                </div>
+                            {% endif %}
+                        </div><!-- item -->
+                    {% endif %}
+                {% endfor %}            
+            </div>
+        </div>
+        {% set logo = Image(post.logo_slider) %}
+        {% if logo %}
+            <div class="nutresa">
+                <picture>
+                    <source srcset="{{ logo.src|resize(130, 40)|towebp(100) }}" type="image/webp">
+                    <source srcset="{{ logo.src|resize(130, 40)|tojpg }}" type="image/jpeg">
+
+                    <img src="{{ logo.src }}" alt="image">
+                </picture>
+            </div>
+        {% endif %}
+    </div>
+</div><!-- slider -->
+{% endif %}
+{% if product_categories %}
+<div class="page-general__our-products page-general__our-products--home" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0">
+    <div class="container">
+        <h2><span>Nuestros</span> Productos</h2>
+        <div class="row row-products">
+            {% for product_category in product_categories if  product_category.posts(1, 'producto') %}
+                {% set c_posts = product_category.posts(-1, 'producto') %}
+                <div class="col-md-2">
+                    <a href="{{ product_page.link }}#{{ product_category.name|lower|replace({' ': '-'}) }}">
+                        <div class="box-hover">
+                            <div class="box-main" style="background: {{ product_category.meta('color') }};">
+                                {% set product_image = Image(product_category.meta('imagen')) %}
+                                <picture>
+                                    <source srcset="{{ product_image.src|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ product_image.src|tojpg }}" type="image/jpeg">
+                                    <img src="{{ product_image.src }}" alt="{{ product_image.alt }}" loading="lazy">
+                                </picture>
+                                <div class="title-mini">
+                                    <h3>{{ product_category.name }}</h3>
+                                    <span>({{ c_posts|length }} producto{% if c_posts|length != 1 %}s{% endif %})</span>
+                                </div>
+                            </div>
+
+                            <div class="box-hidden" style="background: {{ product_category.meta('color') }}">
+                                {% set product_hover_image = Image(product_category.meta('imagen_hover')) %}
+                                <picture>
+                                    <source srcset="{{ product_hover_image.src|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ product_hover_image.src|tojpg }}" type="image/jpeg">
+                                    <img src="{{ product_hover_image.src }}" alt="{{ product_hover_image.alt }}" loading="lazy">
+                                </picture>
+                                <div class="title-mini">
+                                    <h3>{{ product_category.name }}</h3>
+                                    <span>({{ c_posts|length }} producto{% if c_posts|length != 1 %}s{% endif %})</span>
+                                </div>
+                                <div class="icon" style="background: {{ product_category.meta('color_flecha') }};">
+                                    <img src="/wp-content/themes/pietran/dist/assets/images/flecha.svg?ver=f9d41bf3" alt="ico" loading="lazy">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mobile-slider mobile-slider-home">
+        <div class="owl-carousel owl-themes">
+            {% for product_category in product_categories if  product_category.posts(1, 'producto') %}
+                {% set c_posts = product_category.posts(-1, 'producto') %}
+                <div class="item">
+                    <a href="{{ product_page.link }}#{{ product_category.name|lower|replace({' ': '-'}) }}">
+                        <div class="box-hover">
+                            <div class="box-main" style="background: {{ product_category.meta('color') }};">
+                                {% set product_image = Image(product_category.meta('imagen')) %}
+                                <picture>
+                                    <source srcset="{{ product_image.src|resize(198)|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ product_image.src|resize(198)|tojpg }}" type="image/jpeg">
+                                    <img src="{{ product_image.src }}" alt="{{ product_image.alt }}" loading="lazy">
+                                </picture>
+                                <div class="title-mini">
+                                    <h3>{{ product_category.name }}</h3>
+                                    <span>({{ c_posts|length }} producto{% if c_posts|length != 1 %}s{% endif %})</span>
+                                </div>
+                            </div>
+                            <div class="box-hidden" style="background: {{ product_category.meta('color') }};">
+                                {% set product_hover_image = Image(product_category.meta('imagen_hover')) %}
+                                <picture>
+                                    <source srcset="{{ product_hover_image.src|resize(198)|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ product_hover_image.src|resize(198)|tojpg }}" type="image/jpeg">
+                                    <img src="{{ product_hover_image.src }}" alt="{{ product_hover_image.alt }}" loading="lazy">
+                                </picture>
+                                <div class="title-mini">
+                                    <h3>{{ product_category.name }}</h3>
+                                    <span>({{ c_posts|length }} producto{% if c_posts|length != 1 %}s{% endif %})</span>
+                                </div>
+                                <div class="icon" style="background: {{ product_category.meta('color_flecha') }};">
+                                    <img src="/wp-content/themes/pietran/dist/assets/images/flecha.svg?ver=f9d41bf3" alt="ico" loading="lazy">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div><!-- our products -->
+{% endif %}
+{% set feature_recipes = post.meta('recetas_destacadas') %}
+{% if feature_recipes %}
+<div class="page-general__recipes-home" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0">
+    <div class="container">
+        <h2>Recetas <span>destacadas</span></h2>
+        <div class="row">
+            {% for recipe in feature_recipes %}
+                {% set category = recipe.terms('categorias_de_producto')|first %}
+                <div class="col-md-4">
+                    <div class="box">
+                        <div class="image-box">
+
+                            {% if category.meta('color_tag') %}
+                                {% set tag_color = category.meta('color_tag') %}
+                            {% else %}
+                                {% set tag_color = category.meta('color') %}
+                            {% endif %}
+
+                            <a href="{{ product_page.link }}#{{ category.name|lower|replace({' ': '-'}) }}" class="tag" style="background: {{ tag_color }};">{{ category.name }}</a>
+                            <a href="{{ recipe.link }}">
+                                {% set featured = recipe.thumbnail %}
+                                <picture>
+                                    <source srcset="{{ featured.src|resize(385, 435)|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ featured.src|resize(385, 435)|tojpg }}" type="image/jpeg">
+                                    <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                                </picture>
+                            </a>
+                        </div>
+                        <a href="{{ recipe.link }}">
+                            <div class="start-section">
+                                {% set rating = fn('wp_rating_average_by_object_id', recipe.id) %}
+                                {% include 'partial/rating/stars.twig' %}
+                            </div>
+                            <h3>{{ recipe.title }}</h3>
+                            <div class="items-info">
+                                {% if recipe.meta('calorias') is not empty %}
+                                    <span><img src="/wp-content/themes/pietran/dist/assets/images/cal.svg?ver=adf087b2" alt="icon" loading="lazy"> {{ recipe.meta('calorias') }} cal</span>
+                                {% endif %}
+
+                                {% if recipe.meta('tiempo') is not empty %}
+                                    <span><img src="/wp-content/themes/pietran/dist/assets/images/time.svg?ver=a36e1f0b" alt="icon" loading="lazy"> {{ recipe.meta('tiempo') }} minuto{% if recipe.meta('tiempo')|number_format > 1 %}s{% endif %}</span>
+                                {% endif %}
+
+                                {% if recipe.meta('porciones') is not empty %}
+                                    {% if recipe.meta('porciones')|number_format == 1 %}
+                                        {% set portion_text = 'porción' %}
+                                    {% else %}
+                                        {% set portion_text = 'porciones' %}
+                                    {% endif %}
+                                
+                                    <span><img src="/wp-content/themes/pietran/dist/assets/images/porciones.svg?ver=ff1ea33b" alt="icon" loading="lazy"> {{ recipe.meta('porciones') }} {{ portion_text }}</span>
+                                {% endif %}
+                            </div>
+                        </a>
+                        <a href="{{ recipe.link }}" class="btn-recipes">Ver receta <img src="/wp-content/themes/pietran/dist/assets/images/ver.svg?ver=bdc70dce" alt="icon" loading="lazy"></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mobile-slider-recipes-home">
+        <div class="owl-carousel owl-themes">
+            {% for recipe in feature_recipes %}
+                {% set category = recipe.terms('categorias_de_producto')|first %}
+                <div class="item">
+                    <div class="box">
+                        <div class="image-box">
+
+                            {% if category.meta('color_tag') %}
+                                {% set tag_color = category.meta('color_tag') %}
+                            {% else %}
+                                {% set tag_color = category.meta('color') %}
+                            {% endif %}
+                        
+                            <a href="{{ product_page.link }}#{{ category.name|lower|replace({' ': '-'}) }}" class="tag" style="background: {{ tag_color }};">{{ category.name }}</a>
+                            <a href="{{ recipe.link }}">
+                                {% set featured = recipe.thumbnail %}
+                                <picture>
+                                    <source srcset="{{ featured.src|resize(545, 545)|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ featured.src|resize(545, 545)|tojpg }}" type="image/jpeg">
+                                    <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                                </picture>
+                            </a>
+                        </div>
+                        <a href="{{ recipe.link }}">
+                            <div class="start-section">
+                                {% set rating = fn('wp_rating_average_by_object_id', recipe.id) %}
+                                {% include 'partial/rating/stars.twig' %}
+                            </div>
+                            <h3>{{ recipe.title }}</h3>
+                            <div class="items-info">
+                                {% if post.meta('calorias') %}
+                                    <span><img src="/wp-content/themes/pietran/dist/assets/images/cal.svg?ver=adf087b2" alt="icon">{{ recipe.meta('calorias') }}</span>
+                                {% endif %}
+
+                                {% if post.meta('tiempo') %}
+                                    <span><img src="/wp-content/themes/pietran/dist/assets/images/time.svg?ver=a36e1f0b" alt="icon">{{ recipe.meta('tiempo') }}</span>
+                                {% endif %}
+
+                                {% if post.meta('porciones') %}
+                                    <span><img src="/wp-content/themes/pietran/dist/assets/images/porciones.svg?ver=ff1ea33b" alt="icon">{{ recipe.meta('porciones') }}</span>
+                                {% endif %}
+                            </div>
+                        </a>
+                        <a href="{{ recipe.link }}" class="btn-recipes">Ver receta <img src="/wp-content/themes/pietran/dist/assets/images/ver.svg?ver=bdc70dce" alt="icon" loading="lazy"></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="btn-middle">
+        <a href="{{ recipe_page.link }}" class="btn-recipes btn-recipes--big">VER TODAS LAS RECETAS</a>
+    </div>
+</div><!-- recipes home -->
+{% endif %}
+{% if video_or_slider != 'Video' %}
+<div class="page-general__parent-main" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0">
+    <div class="container">
+        {% for slider in post.meta('contenido_slider') %}
+            {% if slider.acf_fc_layout == 'layout_1' %}
+                <div class="main-product" style="background: {{ slider.color_de_fondo_recetas }};">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-btn">
+                            <div class="text">
+                                {% if slider.texto_corto_recetas %}
+                                    <h3>{{ slider.texto_corto_recetas }}</h3>
+                                {% endif %}
+
+                                {% if slider.titulo_recetas %}
+                                    <h2>{{ slider.titulo_recetas }}</h2>
+                                {% endif %}
+
+                                {% if slider.descripcion_corta_recetas %}
+                                    <p>{{ slider.descripcion_corta_recetas }}</p>
+                                {% endif %}
+
+                                {% if slider.enlace_recetas %}
+                                    <a href="{{ slider.enlace_recetas.url }}" target="{{ slider.enlace_recetas.target }}" class="btn-blue">{{ slider.enlace_recetas.title }}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="image-main">
+                            <div class="decoration">
+
+                                {% for deco in slider.decoracion_recetas %}
+                                    {% set deco_img = Image(deco.imagen) %}
+                                    <img src="{{ deco_img.src }}" alt="{{ deco_img.alt }}" class="hoja{{ loop.index }}" loading="lazy">
+                                {% endfor %}
+                            </div>
+
+                            {% set image =  Image(slider.imagen_recetas) %}
+                            {% if image.src %}
+                                <picture>
+                                    <source srcset="{{ image.src|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ image.src|tojpg }}" type="image/jpeg">
+
+                                    <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+                                </picture>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                </div><!-- main product -->
+
+            {% elseif slider.acf_fc_layout == 'layout_2' %}
+                <div class="main-product" style="background: {{ slider.color_de_fondo_recetas }};">
+                    <div class="image-main">
+                        <div class="decoration">
+
+                            {% for deco in slider.decoracion_recetas %}
+                                {% set deco_img = Image(deco.imagen) %}
+                                <img src="{{ deco_img.src }}" alt="{{ deco_img.alt }}" class="hoja{{ loop.index }}" loading="lazy">
+                            {% endfor %}
+                        </div>
+
+                        {% set image =  Image(slider.imagen_recetas) %}
+                        {% if image.src %}
+                            <picture>
+                                <source srcset="{{ image.src|towebp(100) }}" type="image/webp">
+                                <source srcset="{{ image.src|tojpg }}" type="image/jpeg">
+
+                                <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+                            </picture>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-5">
+                            <div class="text">
+                                {% if slider.texto_corto_recetas %}
+                                    <h3>{{ slider.texto_corto_recetas }}</h3>
+                                {% endif %}
+
+                                {% if slider.titulo_recetas %}
+                                    <h2>{{ slider.titulo_recetas }}</h2>
+                                {% endif %}
+
+                                {% if slider.descripcion_corta_recetas %}
+                                    <p>{{ slider.descripcion_corta_recetas }}</p>
+                                {% endif %}
+
+                                {% if slider.enlace_recetas %}
+                                    <a href="{{ slider.enlace_recetas.url }}" target="{{ slider.enlace_recetas.target }}" class="btn-blue">{{ slider.enlace_recetas.title }}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- main product -->
+
+                {% elseif slider.acf_fc_layout == 'layout_3' %}
+                    <div class="main-product" style="background: {{ slider.color_de_fondo_recetas }};">
+                        <div class="image-main">
+                            <div class="decoration">
+                                {% for deco in slider.decoracion_recetas %}
+                                    {% set deco_img = Image(deco.imagen) %}
+                                    <img src="{{ deco_img.src }}" alt="{{ deco_img.alt }}" class="hoja{{ loop.index }}" loading="lazy">
+                                {% endfor %}
+                            </div>
+
+                            {% set image =  Image(slider.imagen_recetas) %}
+                            {%  if image.src %}
+                                <picture>
+                                    <source srcset="{{ image.src|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ image.src|tojpg }}" type="image/jpeg">
+
+                                    <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+                                </picture>
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-5">
+                                <div class="text">
+                                    {% if slider.texto_corto_recetas %}
+                                        <h3>{{ slider.texto_corto_recetas }}</h3>
+                                    {% endif %}
+
+                                    {% if slider.titulo_recetas %}
+                                        <h2>{{ slider.titulo_recetas }}</h2>
+                                    {% endif %}
+
+                                    {% if slider.descripcion_corta_recetas %}
+                                        <p>{{ slider.descripcion_corta_recetas }}</p>
+                                    {% endif %}
+
+                                    {% if slider.enlace_recetas %}
+                                        <a href="{{ slider.enlace_recetas.url }}" target="{{ slider.enlace_recetas.target }}" class="btn-blue">{{ slider.enlace_recetas.title }}</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- main product -->
+                {% elseif slider.acf_fc_layout == 'layout_4' %}
+                    <div class="main-product" style="background: {{ slider.color_de_fondo_recetas }};">
+                        <div class="image-main">
+                            <div class="decoration">
+                                {% for deco in slider.decoracion_recetas %}
+                                    {% set deco_img = Image(deco.imagen) %}
+                                    <img src="{{ deco_img.src }}" alt="{{ deco_img.alt }}" class="hoja{{ loop.index }}" loading="lazy">
+                                {% endfor %}
+                            </div>
+
+                            {% set image =  Image(slider.imagen_recetas) %}
+                            {% if image.src %}
+                                <picture>
+                                    <source srcset="{{ image.src|towebp }}" type="image/webp">
+                                    <source srcset="{{ image.src|tojpg }}" type="image/jpeg">
+
+                                    <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+                                </picture>
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-5">
+                                <div class="text">
+                                    {% if  slider.texto_corto_recetas %}
+                                        <h3>{{ slider.texto_corto_recetas }}</h3>
+                                    {% endif %}
+
+                                    {% if slider.titulo_recetas %}
+                                        <h2>{{ slider.titulo_recetas }}</h2>
+                                    {% endif %}
+
+                                    {% if slider.descripcion_corta_recetas %}
+                                        <p>{{ slider.descripcion_corta_recetas }}</p>
+                                    {% endif %}
+
+                                    {% if slider.enlace_recetas %}
+                                        <a href="{{ slider.enlace_recetas.url }}" target="{{ slider.enlace_recetas.target }}" class="btn-blue">{{ slider.enlace_recetas.title }}</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- main product -->
+            {% endif %}
+        {% endfor %}
+
+       
+        </div><!-- main product -->
+    </div>
+</div>
+{% endif %}
+{% set healthy_world = post.meta('mundo_saludable') %}
+{% if healthy_world  %}
+    <div class="page-general__world-home" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
+        <div class="container">
+            <h2><span>Mi Mundo</span> saludable</h2>
+            <div class="world-slider">
+                <div class="owl-carousel owl-theme">
+                    {% for hw in healthy_world %}
+                        <div class="item">
+                            <a href="{{ hw.link }}">
+                                <div class="box-image">
+                                    {% set featured = hw.thumbnail %}
+                                    <picture>
+                                        <source srcset="{{ featured.src|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ featured.src|tojpg }}" type="image/jpeg">
+                                        <img src="{{ featured.src }}" alt="{{ featured.alt }}">
+                                    </picture>
+                                </div>
+                                <div class="info-text">
+                                    <span class="date">
+                                        <img src="/wp-content/themes/pietran/dist/assets/images/calendar.svg?ver=09249537" alt="image" loading="lazy">
+                                        {{ hw.date }}
+                                    </span>
+                                    <h3>{{ hw.title }}</h3>
+
+                                    <span class="btn-recipes">Leer más <img src="/wp-content/themes/pietran/dist/assets/images/ver.svg?ver=bdc70dce" alt="icon"></span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div><!-- world slider -->
+{% endif %}
+
+{% if post.meta('texto_inferior') %}
+    <div class="page-general__big-social" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
+        <div class="container">
+            <div class="text">
+                {{ post.meta('texto_inferior') }}
+            </div>
+        </div>
+        <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+        <div class="elfsight-app-f9b952d4-f7f7-4fb6-b758-772a0209751f"></div>
+    </div><!-- social big home -->
+{% endif %}
+{% endblock %}

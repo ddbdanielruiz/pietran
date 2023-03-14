@@ -1,0 +1,90 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    {% include "partial/modal-opinion.twig" %}
+    <div class="page-general__page-map">
+        <div class="page-general__map-section">
+            <div class="page-general__miga page-general__miga--recipes">
+                {% include "partial/breadcrumb.twig" %}
+            </div><!-- miga -->
+            <div class="container-left">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-4 col-desk">
+                        <div class="top">
+                            <h1>Conoce dónde puedes adquirir los productos</h1>
+                            <div class="select-style">
+                                <span></span>
+                                <select class="searchm">
+                                    <option value=""></option>
+
+                                    {% for city in cities %}
+                                        <option value="{{ city.name }}" data-lat="{{ city.meta('ubicacion').lat }}" data-log="{{ city.meta('ubicacion').lng }}" data-city-id="{{ city.id }}">{{ city.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <span class="arrow"></span>
+                            </div>
+                            <a href="#" class="my-position">Usar mi ubicación</a>
+
+                            <div class="anchors-btn">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="#" class="anchor active">Mapa</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="#" class="anchor">Listado</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            {% for location in locations %}
+                                <div class='marker city-{{ (location.terms('ciudades')|first).id }}' data-lat="{{ location.meta('ubicacion').lat }}" data-log="{{ location.meta('ubicacion').lng }}" data-id="{{ location.id }}" data-city-id="{{ (location.terms('ciudades')|first).id }}">
+                                    <h3>{{ location.title }}</h3>
+                                    <small>{{ location.meta('direccion') }}</small>
+                                    <div class='phone'>Teléfono: <a href='tel:{{ location.meta('telefono')|replace({' ': ''}) }}'>{{ location.meta('telefono') }}</a></div>
+                                    <div class='hour'>{{ location.meta('horario') }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-8 col-mobile">
+                        <div class="number-shops">
+                            {{ location.found_posts }} Tiendas cerca a tí
+                        </div>
+                        <div class="bottom">
+                            {% for location in locations %}
+                                <div class='marker city-{{ (location.terms('ciudades')|first).id }}' data-lat="{{ location.meta('ubicacion').lat }}" data-log="{{ location.meta('ubicacion').lng }}" data-id="{{ location.id }}" data-city-id="{{ (location.terms('ciudades')|first).id }}">
+                                    <h3>{{ location.title }}</h3>
+                                    <small>{{ location.meta('direccion') }}</small>
+                                    <div class='phone'>Teléfono: <a href='tel:{{ location.meta('telefono')|replace({' ': ''}) }}'>{{ location.meta('telefono') }}</a></div>
+                                    <div class='hour'>{{ location.meta('horario') }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div id="mapid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var locations = [];
+
+        {% for location in locations if location.ubicacion.lat and location.ubicacion.lng %}
+            locations[{{ location.id }}] = [
+                "<div class='marker city-{{ (location.terms('ciudades')|first).id }}' data-id='{{ location.id }}' data-city-id='{{ (location.terms('ciudades')|first).id }}'>" + 
+                    "<h3>{{ location.title }}</h3>" +
+                    "<small>{{ location.meta('direccion') }}</small>" +
+                    "<div class='phone'>Teléfono: <a href='tel:{{ location.meta('telefono')|replace({' ': ''}) }}'>{{ location.meta('telefono') }}</a></div>" +
+                    "<div class='hour'>{{ location.meta('horario') }}</div>" +
+                "</div>",
+
+                {{ location.meta('ubicacion').lat }},
+                {{ location.meta('ubicacion').lng }},
+                {{ location.id }}
+            ];
+        {% endfor %}
+        
+    </script>
+{% endblock %}

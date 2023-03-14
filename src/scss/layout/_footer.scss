@@ -1,0 +1,162 @@
+footer {
+    overflow: hidden;
+    min-height: 30rem;
+    .container {
+        max-width: 124.5rem;
+    }
+    .col-left {
+        position: relative;
+        padding: 4rem;
+        @media (max-width: $mobile) {
+            padding: 4rem 2rem;
+        }
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100vw;
+            height: 100%;
+            right: 0;
+            background: #F0F5DA;
+        }
+        .text {
+            position: relative;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        h2 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            font-family: var(--font);
+            color: var(--green);
+        }
+        img {
+            margin-bottom: 1rem;
+        }
+        .shops {
+            a {
+                text-decoration: none;
+            }
+            img {
+                margin: 1.5rem 1rem;
+                width: 6rem;
+            }
+        }
+        p {
+            font-family: var(--avant);
+            font-size: 1.4rem;
+            color: var(--green);
+            margin-bottom: 0;
+        }
+    }
+    .col-right {
+        position: relative;
+        padding: 2rem 4rem;
+        padding-right: 2rem;
+        @media (max-width: $mobile) {
+            padding: 3rem 1.5rem;
+        }
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100vw;
+            height: 100%;
+            left: 0;
+            background: #1E634A;
+        }
+        img {
+            margin-bottom: 2.5rem;
+            @media (max-width: $mobile) {
+                margin-bottom: 2rem;
+            }
+        }
+        .text {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+        p {
+            font-family: var(--avant);
+            font-size: 1.4rem;
+            color: var(--white);
+            max-width: 48rem;
+            width: 100%;
+        }
+        nav {
+            margin-top: auto;
+            @media (max-width: $mobile) {
+                margin-top: 4rem;
+            }
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                a {
+                    font-family: var(--font);
+                    font-size: 1.6rem;
+                    font-weight: 500;
+                    color: var(--white);
+                    @media (max-width: $mobile) {
+                        font-size: 1.4rem;
+                    }
+                }
+                li {
+                    @media (max-width: $mobile) {
+                        width: 47%;
+                        margin-bottom: 1rem;
+                    }
+                }
+                li:nth-last-of-type(1) {
+                    a {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+    .row.terms {
+        padding: 1.6rem 0;
+        align-items: center;
+        .col-social {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 2rem;
+            @media (max-width: $mobile) {
+                justify-content: flex-start;
+            }
+            img {
+                margin-left: 1rem;
+            }
+        }
+        .col-links {
+            padding-left: 5rem;
+            @media (max-width: $tablet) {
+                padding-left: 1.5rem;
+            }
+            a {
+                font-family: var(--font);
+                font-size: 1.6rem;
+                color: var(--green);
+                margin-right: 3rem;
+                @media (max-width: $tablet) {
+                    margin-right: 2rem;
+                }
+                @media (max-width: $mobile) {
+                    display: block;
+                    font-size: 1.2rem;
+                    margin-bottom: 1rem;
+                }
+            }
+        }
+    } 
+}

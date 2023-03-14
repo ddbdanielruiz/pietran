@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="24px" viewBox="0 0 25 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.109804 0 0 0 0 0.376471 0 0 0 0 0.278431 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="⭐️-Simbolos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Group" transform="translate(-329.000000, -25.000000)" filter="url(#filter-1)">
+            <g transform="translate(341.500000, 36.794118) scale(-1, -1) translate(-341.500000, -36.794118) translate(330.000000, 25.529412)">
+                <line x1="22.5" y1="0.558823529" x2="0.5" y2="21.5588235" id="Line-Copy" stroke="#F2F2F2" stroke-width="1.8"></line>
+                <line x1="22.5208333" y1="21.5294118" x2="0.5" y2="0.558823529" id="Line-Copy-2" stroke="#F2F2F2" stroke-width="1.8"></line>
+            </g>
+        </g>
+    </g>
+</svg>

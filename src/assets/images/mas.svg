@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ico-más activado</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.956863 0 0 0 0 0.956863 0 0 0 0 0.909804 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Mobile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="06_Interna-Recetas_Ensalada-griega_Preparación-acordeón" transform="translate(-311.000000, -488.000000)">
+            <g id="Group" transform="translate(311.000000, 488.000000)">
+                <circle id="Oval" fill="#1A7C86" cx="22" cy="22" r="22"></circle>
+                <g filter="url(#filter-1)" stroke-linecap="round" stroke-linejoin="round">
+                    <g transform="translate(13.000000, 13.000000)">
+                        <line x1="9" y1="0.428571429" x2="9" y2="17.5714286" id="Line" stroke="#F4F4E8" stroke-width="1.5"></line>
+                        <line x1="9" y1="0.428571429" x2="9" y2="17.5714286" id="Line-Copy" stroke="#F4F4E8" stroke-width="1.5" transform="translate(9.000000, 9.000000) rotate(-90.000000) translate(-9.000000, -9.000000) "></line>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="41px" viewBox="0 0 40 41" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Iconos/Ico/RRSS/Facebook</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.956863 0 0 0 0 0.956863 0 0 0 0 0.909804 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <polygon id="path-2" points="0 0 8.8 0 8.8 16 0 16"></polygon>
+    </defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="06_Interna-recetas_op2-seleccionado-compartir" transform="translate(-985.000000, -764.000000)">
+            <g id="Group-14" transform="translate(956.000000, 733.000000)">
+                <g id="Group-10" transform="translate(29.000000, 31.000000)">
+                    <g id="Iconos/Ico/RRSS/Facebook" transform="translate(0.000000, 0.434084)">
+                        <circle id="Oval-Copy" fill="#1A7C86" cx="20" cy="20" r="20"></circle>
+                        <g filter="url(#filter-1)" id="Group-3-Copy">
+                            <g transform="translate(16.000000, 12.444444)">
+                                <mask id="mask-3" fill="white">
+                                    <use xlink:href="#path-2"></use>
+                                </mask>
+                                <g id="Clip-2"></g>
+                                <path d="M8.22340832,8.93211429 L8.67938402,6.05828571 L5.82646134,6.05828571 L5.82646134,4.19337143 C5.82646134,3.40708571 6.22496708,2.64091429 7.50278696,2.64091429 L8.8,2.64091429 L8.8,0.194285714 C8.8,0.194285714 7.62292994,0 6.49741729,0 C4.1477707,0 2.61192722,1.37645714 2.61192722,3.86811429 L2.61192722,6.05828571 L0,6.05828571 L0,8.93211429 L2.61192722,8.93211429 L2.61192722,15.8793143 C3.13577898,15.9586286 3.67240184,16 4.21919428,16 C4.76598672,16 5.30284609,15.9586286 5.82646134,15.8793143 L5.82646134,8.93211429 L8.22340832,8.93211429 Z" id="Fill-1" fill="#FFFFFF" mask="url(#mask-3)"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

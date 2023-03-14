@@ -1,0 +1,364 @@
+{% extends "base.twig" %}
+
+{% block content %}
+{% include "partial/modal-opinion.twig" %}
+{% set video =  post.meta('video') %}
+{% if video %}
+    <div class="modals__modal-video">
+        <div class="capclose"></div>
+        <a href="#" class="close-m"><img src="../assets/images/close-m.svg" alt="ico" loading="lazy"></a>
+        {{ video }}
+    </div>
+{% endif %}
+<div class="page-general__banner-int-recipes">
+    <div class="page-general__miga--only">
+        {% include "partial/breadcrumb.twig" %}
+    </div><!-- miga -->
+    <div class="container-right">
+        <div class="row row-main">
+            <div class="col-12 col-md-7">
+                <div class="box-image">
+                    <picture>
+                        {% set single_related_products = post.meta('productos_relacionados') %}
+                        {#{ dump(single_related_products[0].title) }#}
+
+                        {% set positions = fn('random_top_and_left', single_related_products|length) %}
+                        {#{ dump(positions) }#}
+                        {% for product in single_related_products %}
+                            {% set featured = product.thumbnail %}
+                            <a href="{{ product.link }}">
+                                <div class="box-float" style="left: {{ positions.left[loop.index0] }}%; top: {{ positions.top[loop.index0] }}%;">
+                                    <picture>
+                                        <source srcset="{{ featured.src|resize(92, 92)|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ featured.src|resize(92, 92)|tojpg }}" type="image/jpeg">
+                                        <img src="{{ featured.src|resize(92, 92) }}" alt="{{ featured.alt }}" loading="lazy">
+                                    </picture>
+                                    <div class="text">
+                                        <h4>¿QUÉ NECESITAS?</h4>
+                                        <h3>{{ product.title }}</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                        {% set mobile_plate_background = Image(post.meta('fondo_mobile__productos_relacionados')) %}
+                        <picture>
+                            <source srcset="{{ mobile_plate_background.src|towebp(100) }}" type="image/webp">
+                            <source srcset="{{ mobile_plate_background.src|tojpg }}" type="image/jpeg">
+                            <img src="{{ mobile_plate_background.src}}" alt="{{ mobile_plate_background.alt }}" class="bigimage-mobile" loading="lazy">
+                        </picture>
+                        {% set plate_background = Image(post.meta('fondo_productos_relacionados')) %}
+                        <picture>
+                            <source srcset="{{ plate_background.src|towebp(100) }}" type="image/webp">
+                            <source srcset="{{ plate_background.src|tojpg }}" type="image/jpeg">
+                            <img src="{{ plate_background.src}}" alt="{{ plate_background.alt }}" class="big-image" loading="lazy">
+                        </picture>
+                    </picture>
+                    <div class="nutresa">
+                        <picture>
+                            <img src="../assets/images/nutresa.svg" alt="image" loading="lazy">
+                        </picture>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-5">
+                <div class="social-mobile">
+                    <div class="icons-social">
+                        <img src="../assets/images/ico-compartir.svg" class="compartirm" alt="image" data-change="/wp-content/themes/pietran/src/assets/images/compartirA.svg" data-initial="/wp-content/themes/pietran/src/assets/images/ico-compartir.svg" loading="lazy">
+                        <a href="#" onclick="window.print();"><img src="../assets/images/ico-imprimir.svg" alt="image"></a>
+                        <img src="../assets/images/ico-descargar.svg" alt="image" loading="lazy">
+                    </div>
+                    <div class="open-social">
+                        <img src="../assets/images/mas.svg" alt="image" data-change="/wp-content/themes/pietran/src/assets/images/closesocial.svg" data-initial="/wp-content/themes/pietran/src/assets/images/mas.svg" loading="lazy">
+                    </div>
+                </div>
+                <div class="social-fixed-mobile">
+                    <div class="title">
+                        <span>Compartir</span>
+                        <img src="../assets/images/flechaabajo.svg" alt="image" loading="lazy">
+                    </div>
+                    <a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ post.link }}','popup','width=600,height=600'); return false;"><img src="../assets/images/facebook.svg" alt="ico"></a>
+                    <a href="{{ post.link }}" class="copy-href-to-clipboard"><img src="../assets/images/url.svg" alt="ico"></a>
+                    <a href="mailto:?subject={{ post.tile }}&body={{ post.link }}"><img src="../assets/images/mail.svg" alt="ico"></a>
+                    <a href="https://wa.me/?text={{ post.link }}" target="_blank"><img src="../assets/images/whatsapp.svg" alt="ico"></a>
+                </div>
+                <div class="info-top">
+                    {% set category = post.terms('categorias_de_producto')|first %}
+                    <span class="tag">{{ category.name|upper }}</span>
+                    <h1>{{ post.title }}</h1>
+                    <div class="start-section post-rating">
+                        {% set rating = fn('wp_rating_average_by_object_id', post.id) %}
+                        {% include 'partial/rating/stars.twig' %}
+                        <p class="comments-number comment-counter"> {{ post.comments|length }} <span>comentarios</span></p>
+                    </div>
+                    <div class="items-info">
+                        {% if post.meta('tiempo') %}
+                            <span><img src="../assets/images/timey.svg" alt="icon" loading="lazy"> {{ post.meta('tiempo') }} minuto{% if post.meta('tiempo')|number_format > 1 %}s{% endif %}</span>
+                        {% endif %}
+                        {% if post.meta('porciones') %}
+
+                            {% if post.meta('porciones')|number_format == 1 %}
+                                {% set portion_text = 'porción' %}
+                                
+                            {% else %}
+                                {% set portion_text = 'porciones' %}
+                            {% endif %}
+
+                            <span><img src="../assets/images/pocionesy.svg" alt="icon" loading="lazy"> {{ post.meta('porciones') }} {{ portion_text }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="row row-top">
+                        {% if post.meta('calorias') %}
+                            <div class="col-12 col-md-3">
+                                <div class="card-top">
+                                    <div class="parent">
+                                        <div class="top">
+                                            <picture>
+                                                <img src="../assets/images/caloriasy.svg" alt="ico" loading="lazy">
+                                            </picture>
+                                            Calorías
+                                        </div>
+                                        <h3>{{ post.meta('calorias') }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if post.meta('grasa') %}
+                            <div class="col-12 col-md-3">
+                                <div class="card-top">
+                                    <div class="parent">
+                                        <div class="top">
+                                            <picture>
+                                                <img src="../assets/images/grasay.svg" alt="ico" loading="lazy">
+                                            </picture>
+                                            Grasa
+                                        </div>
+                                        <h3>{{ post.meta('grasa') }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if post.meta('proteina') %}
+                            <div class="col-12 col-md-3">
+                                <div class="card-top">
+                                    <div class="parent">
+                                        <div class="top">
+                                            <picture>
+                                                <img src="../assets/images/caloriasy.svg" alt="ico" loading="lazy">
+                                            </picture>
+                                            Proteína
+                                        </div>
+                                        <h3>{{ post.meta('proteina') }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="text-short">
+                        <p>{{ post.content }}</p>
+                    </div>
+
+                    <div class="anchors-btn">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="#" class="anchor active">Ingredientes</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#" class="anchor">Preparación</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social">
+                        {% if post.meta('descargar') %}
+                            <a href="{{ post.meta('descargar').url }}" download target="_blank">
+                                <div class="social-btn">
+                                    <picture>
+                                        <img src="../assets/images/ico-descargar.svg" alt="ico" loading="lazy">
+                                    </picture>
+                                    Descargar
+                                </div>
+                            </a>
+                        {% endif %}
+                        <div class="social-btn">
+                            <a href="#" onclick="window.print();">
+                                <picture>
+                                    <img src="../assets/images/ico-imprimir.svg" alt="ico" loading="lazy">
+                                </picture>
+                                Imprimir
+                            </a>
+                        </div>
+                        <div class="social-btn social-share">
+                            <picture>
+                                <img src="../assets/images/ico-compartir.svg" alt="ico" loading="lazy">
+                            </picture>
+                            Compartir
+
+                            <div class="share-icons">
+                                <a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ post.link }}','popup','width=600,height=600'); return false;"><img src="../assets/images/facebook.svg" alt="ico"></a>
+                                <a href="{{ post.link }}" class="copy-href-to-clipboard"><img src="../assets/images/url.svg" alt="ico"></a>
+                                <a href="mailto:?subject={{ post.tile }}&body={{ post.link }}"><img src="../assets/images/mail.svg" alt="ico"></a>
+                                <a href="https://wa.me/?text={{ post.link }}" target="_blank"><img src="../assets/images/whatsapp.svg" alt="ico"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- banner -->
+
+{% set ingredients = post.meta('ingredientes') %}
+{% if ingredients %}
+    <div class="page-general__ingredients-recipes" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+        <div class="container">
+            <h2>Ingredientes</h2>
+
+            <div class="row row-ingredient">
+        
+                {% for ingredient in ingredients %}
+                    <div class="col-12 col-md-4">
+                        <div class="ingredient">
+                            <div class="image">
+                                <picture>
+                                    {% set icon = Image(ingredient.icono) %}
+                                    <source srcset="{{ icon.src|resize(45, 45)|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ icon.src|resize(45, 45)|tojpg }}" type="image/jpeg">
+                                    <img src="{{ icon.src }}" alt="{{ icon.alt }}" loading="lazy">
+                                </picture>
+                            </div>
+                            <div class="text">
+                                <h4>
+                                    {% if ingredient.tipo_producto == 'SI' %}
+                                        <a href="{{ ingredient.producto.link }}">{{ ingredient.producto.title }}</a>
+                                    {% else %}
+                                        {{ ingredient.titulo }}
+                                    {% endif %}
+                                </h4>
+                                <p>{{ ingredient.descripcion_corta }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div><!-- ingredientes -->
+{% endif %}
+
+
+{% if video or post.meta('descripcion_corta') or post.meta('preparaciones') %}
+<div class="page-general__preparation" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+    <div class="container">
+        <h2>Preparación</h2>
+        <p>{{ post.meta('descripcion_corta') }}</p>
+        {% if video %}
+            <div class="page-general__video-section">
+                <div class="big-image">
+                    {% set poster = Image(post.meta('poster_del_video')) %}
+                    <picture>
+                        <source srcset="{{ poster.src|resize(1441)|towebp(100) }}" type="image/webp">
+                        <source srcset="{{ poster.src|resize(1441)|tojpg }}" type="image/jpeg">
+
+                        <img src="{{ poster.src }}" alt="{{ poster.alt }}" loading="lazy">
+                    </picture>
+                    <div class="text-description">
+                        <div class="btn-custom"><img src="../assets/images/ico-play-green.svg" alt="image" class="play-ico"> MIRA EL VIDEO</div>
+                        <h3>{{ post.meta('titulo_del_video') }}</h3>
+
+                        {% if post.meta('duracion_del_video') %}
+                            <span class="time">{{ post.meta('duracion_del_video') }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="acordeon">
+            {% for preparation in post.meta('preparaciones')  %}
+                <div class="item">
+                    <h2 class="active"><span>{{ preparation.titulo }}</span> <img src="../assets/images/flechaabajo.svg" alt="image"></h2>
+                    
+                    <div class="content" style="display:block;">
+                        {{ preparation.preparacion }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div><!-- preparation -->
+{% endif %}
+
+{% set tips = post.meta('contenido_tips') %}
+{% if tips %}
+    <div class="page-general__tips-mini" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+        <div class="container">
+            <div class="parent-tips" style="background: {{ post.meta('color_de_fondo_tips')|default('#F9C993;') }};">
+                <div class="image">
+                    <div class="deco">
+                        {% for deco in post.meta('decoracion_tips') %}
+                            {% set imagen = Image(deco.imagen) %}
+
+                            <picture>
+                                <source srcset="{{ image.src|resize(43)|towebp(100) }}" type="image/webp">
+                                <source srcset="{{ image.src|resize(43)|tojpg }}" type="image/jpeg">
+
+                                <img src="{{ imagen.src }}" alt="{{ imagen.alt }}" class="t{{ loop.index }}">
+                            </picture>
+                        {% endfor %}
+                    </div>
+                    <picture>
+                        {% set imagen = Image(post.meta('imagen_tips')) %}
+
+                        <source srcset="{{ imagen.src|resize(342)|towebp(100) }}" type="image/webp">
+                        <source srcset="{{ imagen.src|resize(342)|tojpg }}" type="image/jpeg">
+
+                        <img src="{{ imagen.src }}" alt="{{ imagen.alt }}">
+                    </picture>
+                </div>
+                <div class="text">
+                    {{ tips }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if post.comments|length > 0 %}
+    <div class="page-general__opinions" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400">
+        <div class="container">
+            <div class="title">
+                <h2><span>Opiniones</span> de la receta</h2>
+                <div class="arrow-custom"><img src="../assets/images/izq2.svg" alt="icon" class="customPrevBtno"> <img src="../assets/images/derecha2.svg" alt="ico" class="customNextBtno"></div>
+            </div>
+            <div class="parent-slide">
+                <div class="container">
+                    <div class="opinions-slider">
+                        <div class="owl-carousel owl-theme">
+                            {% for comment in post.comments %}
+                                <div class="item">
+                                    <div class="info-text">
+                                        <div class="start-section">
+                                            {% set rating = fn('find_wp_rating_by_comment_id', comment.id) %}
+                                            {% include 'partial/rating/stars.twig' %}
+                                        </div>
+                                        <p>{{ comment.comment_content|wpautop }}</p>
+                                        <div class="date">
+                                            <span>{{ comment.author.name }}</span>
+                                            <small>{{ comment.date }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% if related_recipes|length > 0 %}
+<div class="page-general__releated-recipes" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="400">
+    {% include 'partial/recipes-releated.twig' %}
+</div>
+{% endif %}
+{% endblock %}

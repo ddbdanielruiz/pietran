@@ -1,0 +1,52 @@
+{
+  "name": "starter-theme-gulp-webpack",
+  "version": "1.0.0",
+  "description": "Timber starter theme with Gulp and Webpack",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joppuyo/starter-theme-gulp-webpack.git"
+  },
+  "author": "Johannes Siipola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joppuyo/starter-theme-gulp-webpack/issues"
+  },
+  "homepage": "https://github.com/joppuyo/starter-theme-gulp-webpack#readme",
+  "dependencies": {
+    "aos": "^2.3.4",
+    "bootstrap": "^4.6.1",
+    "bootstrap-slider": "^11.0.2",
+    "jquery": "^3.6.0",
+    "kute.js": "^2.1.2",
+    "leaflet": "^1.7.1",
+    "malihu-custom-scrollbar-plugin": "^3.1.5",
+    "owl.carousel": "^2.3.4",
+    "waypoints": "^4.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@fullhuman/postcss-purgecss": "^2.3.0",
+    "autoprefixer": "^9.8.6",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^1.0.1",
+    "cssnano": "^4.1.10",
+    "extract-loader": "^2.0.1",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "mini-css-extract-plugin": "^0.4.5",
+    "postcss-loader": "^3.0.0",
+    "raw-loader": "^1.0.0",
+    "regenerator-runtime": "^0.13.7",
+    "sass": "^1.49.9",
+    "sass-loader": "^7.3.1",
+    "svgo-loader": "^2.2.1",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-watch-time-plugin": "^0.3.0"
+  }
+}

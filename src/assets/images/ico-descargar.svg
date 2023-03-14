@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ico-descargar</title>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="06_Interna-recetas_op2-hover" transform="translate(-737.000000, -678.000000)">
+            <g id="Descripción" transform="translate(735.000000, 192.000000)">
+                <g id="Group" transform="translate(2.000000, 486.000000)">
+                    <circle id="Oval-Copy" fill="#1A7C86" cx="22" cy="22" r="22"></circle>
+                    <g id="ico-Descargar" transform="translate(14.000000, 13.000000)" fill="#F4F4E8">
+                        <polygon id="Path" points="9.6 8.412 9.6 0 7.2 0 7.2 8.412 3.6 8.412 8.4 13.2 13.2 8.412"></polygon>
+                        <rect id="Rectangle" x="0" y="15.6" width="16.8" height="2.4"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

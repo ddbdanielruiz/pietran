@@ -1,0 +1,38 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="page-general__contact-page">
+        <div class="page-general__miga page-general__miga--recipes">
+            {% include "partial/breadcrumb.twig" %}
+        </div><!-- miga -->
+        <div class="container">
+            <div class="row row-parent">
+                <div class="col-12 col-lg-5">
+                    <h1>{{ post.title }}</h1>
+                    {{ post.content }}
+                </div>
+                <div class="col-12 col-lg-7">
+                    <div class="row row-links">
+
+                        {% for link in post.meta('enlaces') %}
+                            <div class="col-6 col-md-4">
+                                <a href="{{ link.enlace.url }}" target="{{ link.enlace.target }}"  class="link-box">
+                                    {% set icon = Image(link.icono) %}
+
+                                    <picture>
+                                        <source srcset="{{ icon.src|resize(60, 60)|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ icon.src|resize(60, 60)|tojpg }}" type="image/jpeg">
+
+                                        <img src="{{ icon.src }}" alt="{{ icon.alt }}" loading="lazy">
+
+                                    </picture>
+                                    <h2>{{ link.enlace.title }}</h2>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

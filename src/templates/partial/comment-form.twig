@@ -1,0 +1,38 @@
+<!--<form action="{{ site.site_url ~ '/wp-comments-post.php' }}" method="post" class="comment-form">-->
+<form action="{{ fn('admin_url', 'admin-ajax.php') }}" method="post" class="comment-form">
+    <input name="action" value="wp_add_comment" type="hidden">
+    <input name="comment_post_ID" value="{{ post.id }}" type="hidden">
+    <input name="comment_parent"  value="{{ comment.ID|default('0') }}" type="hidden">
+
+    <div class="start-section">
+        <p class="comments-number">Calificación</p>
+        <fieldset class="rating">
+            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5"></label>
+            <input type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half"></label>
+            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4"></label>
+            <input type="radio" id="star3half" name="rating" value="3.5" /><label class="half" for="star3half"></label>
+            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3"></label>
+            <input type="radio" id="star2half" name="rating" value="2.5" /><label class="half" for="star2half"></label>
+            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2"></label>
+            <input type="radio" id="star1half" name="rating" value="1.5" /><label class="half" for="star1half"></label>
+            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1"></label>
+            <input type="radio" id="starhalf" name="rating" value="0.5" /><label class="half" for="starhalf"></label>
+        </fieldset>
+
+    </div>
+
+    {#{ fn('comment_form') }#}
+
+    {% if  user %}
+        <input type="hidden" name="email" value="{{ user.email }}">
+        <input type="hidden" name="author" value="{{ user.display_name }}">
+        <input type="hidden" name="url" value="{{ user.link }}">
+    {% else %}
+        <input required name="author" placeholder="Tu nombre" type="text">
+    {% endif %}
+
+    <!--<input type="text" placeholder="Tu nombre" name="author" required>-->
+    <textarea name="comment" class="comment-field" placeholder="Déjanos tu comentario acerca de esta receta" required></textarea>
+
+    <button type="submit">ENVIAR</button>
+</form>

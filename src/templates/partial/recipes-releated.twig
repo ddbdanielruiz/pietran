@@ -1,0 +1,67 @@
+{% if related_recipes|length > 0 %}
+    <div class="page-general__recommended-recipes">
+        <div class="container">
+            <h2><span>Recetas</span> relacionadas</h2>
+            <div class="row">
+                {% for related in related_recipes  %}
+                    {% set featured = related.thumbnail %}
+                    <div class="col-12 col-md-4">
+                        <a href="{{ related.link }}" class="box">
+                            <div class="info-text">
+                                <div class="image-box">
+                                    <picture>
+                                        <source srcset="{{ featured.src|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ featured.src|tojpg }}" type="image/jpeg">
+
+                                        <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                                    </picture>
+                                </div>
+
+                                <div class="start-section">
+                                    {% set rating = fn('wp_rating_average_by_object_id', related.id) %}
+                                    {% include 'partial/rating/stars.twig' %}
+                                </div>
+                                
+                                <h3>{{ related.title }}</h3>
+                            </div>
+                            <span class="btn-recipes">Ver receta  <img src="../../assets/images/ver.svg" alt="icon"></span>
+                        </a>
+                    </div>
+                {% endfor %}
+
+                
+            </div>
+
+            <div class="mobile-slider-recipes-home">
+                <div class="owl-carousel owl-themes">
+                    {% for related in related_recipes  %}
+                        {% set featured = related.thumbnail %}
+                        <div class="item">
+                            <a href="{{ related.link }}" class="box">
+                                <div class="info-text">
+                                    <div class="image-box">
+                                        <picture>
+                                            <source srcset="{{ featured.src|towebp(100) }}" type="image/webp">
+                                            <source srcset="{{ featured.src|tojpg }}" type="image/jpeg">
+                                            <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="start-section">
+                                        {% set rating = fn('wp_rating_average_by_object_id', related.id) %}
+                                        {% include 'partial/rating/stars.twig' %}
+                                    </div>
+                                    <h3>{{ related.title }}</h3>
+                                </div>
+                                <span class="btn-recipes">Ver receta  <img src="../../assets/images/ver.svg" alt="icon"></span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="btn-middle">
+                <a href="{{ recipe_page.link }}" class="btn-recipes btn-recipes--big">VER TODAS LAS RECETAS</a>
+            </div>
+        </div>
+    </div>
+{% endif %}

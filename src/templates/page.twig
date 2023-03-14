@@ -1,0 +1,39 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="page-general__banner-int-article page-general__banner-int-article--only-title">
+    <img src="../assets/images/formaworld.svg" alt="image" class="forma">
+    <div class="page-general__miga--only">
+        {% include "partial/breadcrumb.twig" %}
+    </div><!-- miga -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="text">
+                    <h1>{{ post.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- slider -->
+<div class="page-general__politics">
+    <div class="container single-content">
+        {{ post.content }}
+        <!-- acordeon -->
+        {% for content in post.meta('contenido_flexible') %}
+            {% if content.acf_fc_layout == 'acordeon'  %}
+                <div class="acordeon">
+                    {% for c in content.contenido %}
+                        <div class="item">
+                            <h2 class="{% if loop.index == 1 %}active{% endif %}"><span>{{ c.titulo }}</span> <img src="../assets/images/flechaabajo.svg" alt="image"></h2>
+                            <div class="content" style="{% if loop.index == 1 %}display: block;{% endif %}">
+                                {{ c.contenido }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+/**
+ * Media Queries
+ * 1em = 16px
+ * Phone:               0       - 600px     => 0        - 37.5em
+ * Tablet:              720px   - 980px     => 45em     - 61.25em
+ * Desktop:             980px   - 1800px    => 61.25em  - 112.5em
+ * Big Desktop:         1800px  - Infinite  => 112.5    - Infinite
+ */
+
+// @custom-media --respond-to-phone (width < 37.5em); // This one shall not be used since default styles would be mobile per se

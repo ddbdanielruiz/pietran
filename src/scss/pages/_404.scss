@@ -1,0 +1,111 @@
+.banner-404 {
+    --width-container: 124.5rem;
+    width: 100%;
+    min-height: 70rem;
+    background-image: url(../assets/images/bg-error.png);
+    background-size: cover;
+    padding-top: 10rem;
+    @media (max-width: $tablet-portrait) {
+        padding-top: 14rem;
+        padding-bottom: 5rem;
+    }
+    @media (max-width: $mobile) {
+        padding-top: 10rem;
+        padding-bottom: 5rem;
+    }
+    .container {
+        max-width: var(--width-container);
+    }
+    .container-left {
+        @media (max-width: $tablet-portrait) {
+            margin-left: calc(50vw - 50%);
+        }
+    }
+    h1 {
+        font-family: var(--font);
+        font-size: 7rem;
+        font-weight: 700;
+        color: var(--green);
+        @media (max-width: $mobile) {
+            font-size: 4rem;
+        }
+    }
+    p {
+        font-family: var(--avant);
+        color: var(--silver);
+        font-size: 1.6rem;
+        margin-bottom: 3rem;
+        strong {
+            font-family: var(--font);
+            font-weight: 500;
+            color: var(--blue);
+            font-size: 2.4rem;
+            display: block;
+            @media (max-width: $min-mobile) {
+                font-size: 2rem;
+            }
+        }
+    }
+    .row {
+        align-items: center;
+        [class^="col-"] {
+            &:nth-of-type(1) {
+                @media (max-width: $tablet-portrait) {
+                    margin-bottom: 6rem;
+                }
+            }
+            &:nth-of-type(2) {
+                display: flex;
+                justify-content: flex-end;
+                @media (max-width: $mobile) {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+    .image {
+        position: relative;
+        .error-1,
+        .error-2,
+        .error-3 {
+            position: absolute;
+        }
+        .error-1 {
+            right: 0%;
+            bottom: 0%;
+            animation: movefloat 5s .2s infinite alternate-reverse;
+            @media (max-width: $mobile) {
+                width: 9rem;
+            }
+        }
+        .error-2 {
+            right: 3%;
+            animation: movefloat 5s .4s infinite alternate-reverse;
+            @media (max-width: $mobile) {
+                width: 3rem;
+            }
+        }
+        .error-3 {
+            top: -10%;
+            lefT: -15%;
+            animation: movefloat 5s .6s infinite alternate-reverse;
+            @media (max-width: $mobile) {
+                width: 12rem;
+            }
+        }
+        picture img {
+            max-width: 100%;
+        }
+        @keyframes movefloat {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(1rem);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{% if related_products and related_products.found_posts > 0 %}
+    <div class="page-general__product-releated parent-slide" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100">
+        <div class="container">
+            <div class="title">
+                <h2><span>Productos</span> relacionados</h2>
+                <div class="arrow-custom"><img src="../../assets/images/izq2.svg" alt="icon" class="customPrevBtn"> <img src="../../assets/images/derecha2.svg" alt="ico" class="customNextBtn"></div>
+            </div>
+            <div class="products-slider">
+                <div class="owl-carousel owl-theme">
+                    {% include 'partial/products/related-items.twig' %}
+                </div>
+            </div><!-- slider -->
+            <div class="btn-middle">
+                <a href="{{ product_page.link }}" class="btn-recipes btn-recipes--big">VER TODOS LOS PRODUCTOS</a>
+            </div>
+        </div>
+    </div>
+{% endif %}

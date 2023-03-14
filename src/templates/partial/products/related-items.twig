@@ -1,0 +1,34 @@
+{% for related in related_products %}
+    {% set featured = related.thumbnail %}
+    <div class="item">
+        <a href="{{ related.link }}">
+            <div class="box-image">
+                <picture>
+                    <source srcset="{{ featured.src|resize(0,177)|towebp(100) }}" type="image/webp">
+                    <source srcset="{{ featured.src|resize(0,177)|tojpg }}" type="image/jpeg">
+                    <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                </picture>
+            </div>
+            <div class="info-text">
+                {% set category = related.terms('categorias_de_producto')|first %}
+
+                {% if category.meta('color_tag') %}
+                    {% set tag_color = category.meta('color_tag') %}
+                {% else %}
+                    {% set tag_color = category.meta('color') %}
+                {% endif %}
+                
+                <span class="tag" style="color: {{ tag_color }};">{{ category.name|upper }}</span>
+                <div class="start-section">
+                    {% set rating = fn('wp_rating_average_by_object_id', related.id) %}
+                    {% include 'partial/rating/stars.twig' %}
+                </div>
+                <h3>{{ related.title }}</h3>
+                <!--<span class="gr">420 gr</span>-->
+
+                <p>{{ related.preview.length(20).read_more(false) }}</p>
+            </div>
+            <span class="btn-recipes">Ver producto  <img src="../../../assets/images/ver.svg" alt="icon"></span>
+        </a>
+    </div>
+{% endfor %}

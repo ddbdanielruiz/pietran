@@ -1,0 +1,23 @@
+{% set prefix = '' %}
+{% if is_mobile %}
+    {% set prefix = 'm' %}
+{% endif %}
+
+<div class="check">
+    <input type="checkbox" id="{{ prefix }}chkp0" value="0" data-name="Todas" class="filters all-filters" name="products[]">
+    <label for="{{ prefix }}chkp0">Todas</label>
+</div>
+
+{% for product in products %}
+    {% set category = product.terms('categorias_de_producto')|first %}
+
+    {% set color = '' %}
+    {% if category is not empty %}
+        {% set color = category.meta('color') %}
+    {% endif %}
+
+    <div class="check">
+        <input type="checkbox" id="{{ prefix }}chkp{{ product.id }}" value="{{ product.id }}" data-name="{{ product.title }}" data-color="{{ color }}" data-type="{{ product.post_type }}" class="filters" name="products[]">
+        <label for="{{ prefix }}chkp{{ product.id }}">{{ product.name }}</label>
+    </div>
+{% endfor %}

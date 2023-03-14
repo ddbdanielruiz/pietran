@@ -1,0 +1,17 @@
+<div class="title hide-with-success-message">
+    <div class="image">
+        {% for link in contact_page.meta('enlaces') if link.enlace.url|trim('/')|split('/')|last in post.slug  %}
+            {% set icon = Image(link.icono) %}
+            <picture>
+                <source srcset="{{ icon.src|resize(68, 68)|towebp(100) }}" type="image/webp">
+                <source srcset="{{ icon.src|resize(68, 68)|tojpg }}" type="image/jpeg">
+
+                <img src="{{ icon.src }}" alt="{{ icon.alt }}" loading="lazy">
+            </picture>
+        {% endfor %}
+    </div>
+    <div class="text">
+        <h3>{{ post.title }}</h3>
+        <span>*Todos los campos son obligatorios</span>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="16px" viewBox="0 0 12 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>import_export-24px</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.101961 0 0 0 0 0.486275 0 0 0 0 0.525490 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="⭐️-Simbolos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Botón-mobile/Primario/Ordenar" transform="translate(-29.000000, -10.000000)">
+            <g id="import_export-24px" transform="translate(29.000000, 7.000000)" filter="url(#filter-1)">
+                <g transform="translate(0.000000, 3.000000)">
+                    <path d="M3.42857143,0 L0,3.54666667 L2.57142857,3.54666667 L2.57142857,9.77777778 L4.28571429,9.77777778 L4.28571429,3.54666667 L6.85714286,3.54666667 L3.42857143,0 Z M9.42857143,12.4533333 L9.42857143,6.22222222 L7.71428571,6.22222222 L7.71428571,12.4533333 L5.14285714,12.4533333 L8.57142857,16 L12,12.4533333 L9.42857143,12.4533333 Z" id="Shape" fill="#2A1605" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

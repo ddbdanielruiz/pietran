@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="46px" height="46px" viewBox="0 0 46 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Ico sin conservantes</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <polygon id="path-2" points="0 0 13.0909091 0 13.0909091 13.2413793 0 13.2413793"></polygon>
+        <polygon id="path-4" points="0 0 4.90909091 0 4.90909091 12.4137931 0 12.4137931"></polygon>
+    </defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02_Productos_1" transform="translate(-96.000000, -437.000000)">
+            <g id="Textos-banner" transform="translate(96.000000, 201.000000)">
+                <g id="Ico-sin-conservantes" transform="translate(0.000000, 236.000000)">
+                    <circle id="Oval" fill="#B1C849" cx="23" cy="23" r="23"></circle>
+                    <g filter="url(#filter-1)" id="Group-9">
+                        <g transform="translate(13.000000, 11.000000)">
+                            <g id="Group-3" transform="translate(6.545455, 10.758621)">
+                                <mask id="mask-3" fill="white">
+                                    <use xlink:href="#path-2"></use>
+                                </mask>
+                                <g id="Clip-2"></g>
+                                <path d="M0.623880085,12.2460003 C0.623880085,12.2460003 -4.21996747,0.769622938 13.0862063,0 C13.0862063,0 13.7038361,12.8037271 1.24339094,13.2415126 C1.24339094,13.2415126 3.5032261,8.21597474 9.3785467,1.96970165 C9.3785467,1.96970165 2.25166368,8.87032083 0.623880085,12.2460003" id="Fill-1" fill="#FFFFFF" mask="url(#mask-3)"></path>
+                            </g>
+                            <g id="Group-6" transform="translate(8.181818, 0.000000)">
+                                <mask id="mask-5" fill="white">
+                                    <use xlink:href="#path-4"></use>
+                                </mask>
+                                <g id="Clip-5"></g>
+                                <path d="M2.02463239,12.4137931 C2.02463239,12.4137931 5.06845062,10.8623506 4.90254729,5.55043563 C4.73720826,0.238520621 3.948321,-0.000477997237 3.948321,-0.000477997237 C3.948321,-0.000477997237 -2.56197395,5.31143701 1.13699314,12.4137931 C1.13699314,12.4137931 1.40503424,7.16196917 2.45462673,5.07312125 C2.45462673,5.07312125 1.43268479,9.60863217 2.02463239,12.4137931" id="Fill-4" fill="#FFFFFF" mask="url(#mask-5)"></path>
+                            </g>
+                            <path d="M7.43185009,14.201917 L9,12.5851582 C9,12.5851582 6.08021002,8.18196202 0.132993735,6.62068966 C0.132993735,6.62068966 -1.38133802,13.310308 5.80988201,17.3793103 L6.72912097,15.0380396 C6.72912097,15.0380396 3.17155483,13.1298178 2.45769093,10.1329147 C2.45769093,10.1329147 4.89064304,13.8115989 7.43185009,14.201917" id="Fill-7" fill="#FFFFFF"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

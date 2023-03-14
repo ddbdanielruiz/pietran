@@ -1,0 +1,32 @@
+{% for n in news %}
+    {% set news_category = n.terms('category')|first %}
+    <div class="col-md-6 col-lg-4">
+        <div class="parent-article">
+            <a href="{{ n.link }}">
+                {% set featured = n.thumbnail %}
+                <div class="image">
+                    <picture>
+                        <source srcset="{{ featured.src|towebp(100) }}" type="image/webp">
+                        <source srcset="{{ featured.src|tojpg }}" type="image/jpeg">
+                        <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                    </picture>
+                    <span class="btn-recipes">Leer más <img src="../../../assets/images/ver.svg" alt="icon"></span>
+                </div>
+            </a>
+            <span class="tag">{{ news_category.name|upper }}</span>
+            <a href="{{ n.link }}" class="text">
+                <h3>{{ n.title }}</h3>
+                <p>{{ n.preview.length(25).read_more(false) }}</p>
+
+                <span class="date">
+                    <img src="../../../assets/images/calendar.svg" alt="image">
+                    {{ n.date }}
+                </span>
+            </a>
+        </div>
+    </div>
+{% endfor %}
+
+<div class="pagination-container">
+    {% include 'partial/ajax-pagination.twig' with { 'posts': news } %}
+</div>

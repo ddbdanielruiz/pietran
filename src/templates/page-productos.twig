@@ -1,0 +1,272 @@
+{% extends "base.twig" %}
+{% block content %}
+<style>
+    .page-general__page-int {
+        padding-top: 0;
+    }
+    .header.header-int {
+        background: transparent !important;
+    }
+    .header.header-scroll {
+        background: var(--white) !important;
+    }
+    @media (max-width: 1100px) {
+        .header.header-int {
+            background: var(--white) !important;
+        }
+    }
+</style>
+<div class="page-general__page-int">
+    <div class="page-general__banner-products" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+
+
+        {% set thumbnail = post.thumbnail %}
+        <picture>
+            <source srcset="{{ thumbnail.src|towebp(100) }}" type="image/webp">
+            <source srcset="{{ thumbnail.src|tojpg }}" type="image/jpeg">
+            <img src="{{ thumbnail.src }}" alt="{{ thumbnail.alt }}" class="big-slider" loading="lazy">
+        </picture>
+                         
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-9 col-lg-5">
+                    {{ post.content }}
+                    <div class="row">
+                        {% for icon in post.meta('iconos_slider') %}
+                            <div class="col-6 col-md-5 col-mini">
+                                <div class="mini-icon">
+                                    {% set image = Image(icon.icono) %}
+                                    <picture>
+                                        <source srcset="{{ image.src|resize(60, 60)|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ image.src|resize(60, 60)|tojpg }}" type="image/jpeg">
+                                        <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+                                    </picture>
+                                </div>
+                                <h4>{{ icon.texto }}</h4>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="button-slider">
+                        <div class="prev">
+                            <img src="../assets/images/izq2.svg" alt="icon" loading="lazy">
+                        </div>
+                        <div class="next">
+                            <img src="../assets/images/derecha2.svg" alt="icon" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="parent-slider">
+            <div class="slider">
+                {% for product in post.meta('productos_slider') if product.meta('imagen_slider') %}
+                    {% set inital_class = 'move' %}
+                    {% if loop.index == 1 %}
+                        {% set inital_class = 'initial' %}
+                    {% endif %}
+                    <div class="item {{ inital_class }}" data-post-title="{{ product.title }}">
+                        <div class="into">
+                            {% set thumb = Image(product.meta('miniatura_slider')) %}
+                            <picture>
+                                <source srcset="{{ thumb.src|resize(198, 198)|towebp(100) }}" type="image/webp">
+                                <source srcset="{{ thumb.src|resize(198, 198)|tojpg }}" type="image/jpeg">
+                                <img src="{{ thumb.src }}" alt="{{ thumb.alt }}" class="image" loading="lazy">
+                            </picture>
+                            <div class="show-active">
+                                <div class="deco">
+                                    {% for deco in product.meta('decoracion_slider') %}
+                                        {% set deco_img = Image(deco.imagen) %}
+                                        <picture>
+                                            <source srcset="{{ deco_img|towebp(100) }}" type="image/webp">
+                                            <source srcset="{{ deco_img|tojpg }}" type="image/jpeg">
+                                            <img src="{{ deco_img }}" alt="{{ deco_img.alt }}" class="hojita{{ loop.index }}" loading="lazy">
+                                        </picture>
+                                    {% endfor %}
+                                </div>
+                                {% set imagen = Image(product.meta('imagen_slider')) %}
+                                <a href="{{ product.link }}">
+                                    <picture>
+                                        <source srcset="{{ imagen.src|resize(590)|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ imagen.src|resize(590)|tojpg }}" type="image/jpeg">
+                                        <img src="{{ imagen.src }}" alt="{{ imagen.alt }}" class="image-big" loading="lazy">
+                                    </picture>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="page-general__miga--only" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+        {% include "partial/breadcrumb.twig" %}
+    </div><!-- miga -->
+    <div class="page-general__our-products page-general__our-products--int" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+        <div class="container">
+            <div class="row row-products">
+                {% for term in product_categories if term.posts(1, 'producto')|length == 1 %}
+                    {% set posts =  term.posts(-1, 'producto')   %}
+                    <div class="col-md-2">
+                        <a href="#{{ term.name|lower|replace({' ': '-'}) }}" class="scrollLink">
+                            <div class="box-hover">
+                                {% set term_image = Image(term.meta('imagen')) %}
+                                <div class="box-main" style="background: {{ term.color }};">
+                                    <picture>
+                                        <source srcset="{{ term_image.src|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ term_image.src|tojpg }}" type="image/jpeg">
+                                        <img src="{{ term_image.src }}" alt="{{ term_image.alt }}" loading="lazy">
+                                    </picture>
+                                    <div class="title-mini">
+                                        <h3>{{ term.name }}</h3>
+                                        <span>({{ posts|length }} producto{% if posts|length != 1 %}s{% endif %})</span>
+                                    </div>
+                                </div>
+                                <div class="box-hidden" style="background: {{ term.color }};">
+                                    {% set term_hover_image = Image(term.meta('imagen_hover')) %}
+                                    <picture>
+                                        <source srcset="{{ term_hover_image.src|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ term_hover_image.src|tojpg }}" type="image/jpeg">
+                                        <img src="{{ term_hover_image.src }}" alt="{{ term_hover_image.alt }}" loading="lazy">
+                                    </picture>
+                                    <div class="title-mini">
+                                        <h3>{{ term.name }}</h3>
+                                        <span>({{ posts|length }} producto{% if posts|length != 1 %}s{% endif %})</span>
+                                    </div>
+                                    <div class="icon" style="background: {{ term.meta('color_flecha') }};">
+                                        <img src="../assets/images/flecha.svg" alt="ico" loading="lazy">
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="mobile-slider mobile-slider--products">
+            <div class="owl-carousel owl-themes">
+            {% for term in product_categories %}
+                {% set posts =  term.posts(-1, 'producto') %}
+                    <div class="item">
+                        <a href="#{{ term.name|lower|replace({' ': '-'}) }}" class="scrollLink">
+                            <div class="box-hover">
+                                <div class="box-main" style="background: {{ term.color }};">
+                                    {% set term_image = Image(term.meta('imagen')) %}
+                                    <picture>
+                                        <source srcset="{{ term_image.src|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ term_image.src|tojpg }}" type="image/jpeg">
+                                        <img src="{{ term_image.src }}" alt="{{ term_image.alt }}" loading="lazy">
+                                    </picture>
+                                    <div class="title-mini">
+                                        <h3>{{ term.name }}</h3>
+                                        <span>({{ posts|length }} producto{% if posts|length != 1 %}s{% endif %})</span>
+                                    </div>
+                                </div>
+
+                                <div class="box-hidden" style="background: {{ term.color }};">
+                                    {% set term_hover_image = Image(term.meta('imagen_hover')) %}
+                                    <picture>
+                                        <source srcset="{{ term_hover_image.src|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ term_hover_image.src|tojpg }}" type="image/jpeg">
+                                        <img src="{{ term_hover_image.src }}" alt="{{ term_hover_image.alt }}" loading="lazy">
+                                    </picture>
+                                    <div class="title-mini">
+                                        <h3>{{ term.name }}</h3>
+                                        <span>({{ posts|length }} producto{% if posts|length != 1 %}s{% endif %})</span>
+                                    </div>
+                                    <div class="icon" style="background: {{ term.meta('color_flecha') }};">
+                                        <img src="../assets/images/flecha.svg" alt="ico" loading="lazy">
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div><!-- our products -->
+    <div class="page-general__sliders">
+        {% for term in product_categories if term.posts(1, 'producto')|length == 1 %}
+            {% set category = term.terms('categorias_de_producto')|first %}
+            <div class="parent-slide" id="{{ term.name|lower|replace({' ': '-'}) }}" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                <div class="container">
+                    {% set posts = term.posts(-1, 'producto') %}
+                    <h2>{{ term.name }} <div class="arrow-custom"><img src="../assets/images/izq2.svg" alt="icon" class="customPrevBtn" loading="lazy"> <img src="../assets/images/derecha2.svg" alt="ico" class="customNextBtn" loading="lazy"></div></h2>
+                    <div class="products-slider">
+                        <div class="owl-carousel owl-theme">
+                            {% for product in posts %}
+                                {% set featured = product.thumbnail %}
+                                <div class="item">
+                                    <a href="{{ product.link }}">
+                                        <div class="box-image">
+                                            <picture>
+                                                <source srcset="{{ featured.src|resize(380,0)|towebp(100) }}" type="image/webp">
+                                                <source srcset="{{ featured.src|resize(380,0)|tojpg }}" type="image/jpeg">
+                                                <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                                            </picture>
+                                        </div>
+                                        <div class="info-text">
+
+                                            {% if term.meta('color_tag') %}
+                                                {% set tag_color = term.meta('color_tag') %}
+                                            {% else %}
+                                                {% set tag_color = term.meta('color') %}
+                                            {% endif %}
+
+                                            <span class="tag" style="color: {{ tag_color }};">{{ term.name|upper }}</span>
+                                            <div class="start-section">
+                                                {% set rating = fn('wp_rating_average_by_object_id', product.id) %}
+                                                {% include 'partial/rating/stars.twig' %}
+                                            </div>
+                                            <h3>{{ product.title }}</h3>
+                                            <!--<span class="gr">200 gr</span>-->
+                                            <p>{{ product.preview.length(15).read_more(false) }}</p>
+                                        </div>
+                                        <span class="btn-recipes">Ver producto  <img src="../assets/images/ver.svg" alt="icon" loading="lazy"></span>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if term.meta('activar_receta_destacada') == 'SI' %}
+                        {% set recipe = term.meta('receta_destacada') %}
+                        <div class="parent-main">
+                            <div class="main-product">
+                                <div class="image-main">
+                                    <div class="decoration">
+                                        {% for deco in term.meta('decoracion_receta_destacada') %}
+                                            {% set image = Image(deco.imagen) %}
+                                            <img src="{{ image.src }}" alt="{{ image.alt }}" class="hoja{{ loop.index }}" loading="lazy">
+                                        {% endfor %}
+                                    </div>
+                                    <picture>
+                                        {% set image = Image(term.meta('imagen_receta_destacada')) %}
+                                        <source srcset="{{ image.src|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ image.src|tojpg }}" type="image/jpeg">
+                                        <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+                                    </picture>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-md-5">
+                                        <div class="text">
+                                            {% if term.meta('texto_pequeno_receta_destacada') %}
+                                                <h3>{{ term.meta('texto_pequeno_receta_destacada') }}</h3>
+                                            {% endif %}
+                                            {% if term.meta('titulo_receta_destacada') %}
+                                                <h2>{{ term.meta('titulo_receta_destacada') }}</h2>
+                                            {% else %}
+                                                <h2>{{ recipe.title }}</h2>
+                                            {% endif %}
+                                            {{ term.meta('descripcion_receta_destacada') }}
+                                            <a href="{{ fn('get_permalink', recipe.ID) }}" class="btn-blue">VER RECETA</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- main product -->
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

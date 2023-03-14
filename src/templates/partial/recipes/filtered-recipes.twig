@@ -1,0 +1,65 @@
+<input type="hidden" class='found-posts' value='{{ recipes.found_posts }}' />
+<div class="page-general__recipes-home page-general__recipes-home--recipespage" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0">
+    <div class="container">
+        <div class="row">
+            {% for recipe in recipes %}
+                {% set category = recipe.terms('categorias_de_producto')|first %}
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="box">
+                        <div class="image-box">
+                            {% if category.meta('color_tag') %}
+                                {% set tag_color = category.meta('color_tag') %}
+                            {% else %}
+                                {% set tag_color = category.meta('color') %}
+                            {% endif %}
+
+                            <a href="{{ product_page.link }}#{{ category.name|lower|replace({' ': '-'}) }}" class="tag" style="background: {{ tag_color }};">{{ category.name }}</a>
+                            <a href="{{ recipe.link }}">
+                                {% set featured = recipe.thumbnail %}
+                                
+                                <picture>
+                                    <source srcset="{{ featured.src|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ featured.src|tojpg }}" type="image/jpeg">
+                                    <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                                </picture>
+                            </a>
+                        </div>
+                        <a href="{{ recipe.link }}">
+                            <div class="start-section">
+                                {% set rating = fn('wp_rating_average_by_object_id', recipe.id) %}
+                                {% include 'partial/rating/stars.twig' %}
+                            </div>
+                            <h3>{{ recipe.title }}</h3>
+                            <div class="items-info">
+                                {% if recipe.meta('calorias') is not empty %}
+                                    <span><img src="../../../assets/images/cal.svg" alt="icon" loading="lazy"> {{ recipe.meta('calorias') }} cal</span>
+                                {% endif %}
+
+                                {% if recipe.meta('tiempo') is not empty %}
+                                    <span><img src="../../../assets/images/time.svg" alt="icon" loading="lazy"> {{ recipe.meta('tiempo') }} minuto{% if recipe.meta('tiempo')|number_format > 1 %}s{% endif %}</span>
+                                {% endif %}
+
+                                {% if recipe.meta('porciones') is not empty %}
+                                    {% if recipe.meta('porciones')|number_format == 1 %}
+                                        {% set portion_text = 'porción' %}
+                                    {% else %}
+                                        {% set portion_text = 'porciones' %}
+                                    {% endif %}
+
+                                    <span><img src="../../../assets/images/porciones.svg" alt="icon" loading="lazy"> {{ recipe.meta('porciones') }} {{ portion_text }}</span>
+                                {% endif %}
+
+                        </div>
+                        </a>
+                        <a href="{{ recipe.link }}" class="btn-recipes">Descúbrela aquí <img src="../../../assets/images/ver.svg" alt="icon"></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div><!-- recipes home -->
+
+<div class="row">
+    {% include 'partial/ajax-pagination.twig' with { 'posts': recipes } %}
+</div>

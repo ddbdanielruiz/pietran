@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="7px" viewBox="0 0 14 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Iconos/flecha abajo</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.117647 0 0 0 0 0.388235 0 0 0 0 0.290196 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="⭐️-Simbolos" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="IMC/Cálculo-resultados" transform="translate(-317.000000, -36.000000)">
+            <g id="Group-2" transform="translate(260.000000, 29.000000)">
+                <g id="Iconos/flecha-abajo" transform="translate(58.166667, 8.000000)" filter="url(#filter-1)">
+                    <g transform="translate(5.833333, 2.500000) scale(1, -1) translate(-5.833333, -2.500000) ">
+                        <polyline id="Path-3-Copy-2" stroke="#1A7C86" stroke-width="1.5" points="1.32239898e-13 0 5.60029176 5 11.5543399 0"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

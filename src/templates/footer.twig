@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-4 col-left">
+            <div class="text">
+                <img src="../assets/images/hojas2.svg" alt="icon">
+                <h2>{{ shop_title }}</h2>
+                {% if shops %}
+                    <div class="shops">
+                        {% for shop in shops %}
+                            <a href="{{ shop.url }}" target="_blank">
+                                {% set image = Image(shop.logo) %}
+                                <picture>
+                                    <source srcset="{{ image.src|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ image.src|tojpg }}" type="image/jpeg">
+                                    <img src="{{ image.src }}" alt="{{ image.alt }}">
+                                </picture>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <p>{{ shop_description }}</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-8 col-right">
+            <div class="text">
+                <a href="http://www.pietran.com.co.com">
+                    <img src="../assets/images/logo-productos-pietran.png" alt="image">
+                </a>
+                {{ footer_description }}
+                <nav>
+                    {% include "partial/footer-menu.twig" with {'menu': footer_menu.get_items} %}
+                </nav><!-- #nav -->
+            </div>
+        </div>
+    </div>
+    <div class="row terms">
+        {% if footer_links %}
+            <div class="col-12 col-md-8 col-links">
+                {% for link in footer_links %}
+                    <a href="{{ link.enlace.url }}" target="{{ link.enlace.target }}">{{ link.enlace.title }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="col-12 col-md-4 col-social">
+            {% if facebook_url %}
+                <a href="{{ facebook_url }}"><img src="../assets/images/facebookg.svg" alt="icon"></a>
+            {% endif %}
+
+            {% if instagram_url %}
+                <a href="{{ instagram_url }}"><img src="../assets/images/instagramg.svg" alt="icon"></a>
+            {% endif %}
+
+            {% if youtube_url %}
+                <a href="{{ youtube_url }}"><img src="../assets/images/youtubeg.svg" alt="icon"></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="fixed-brands">
+    <div class="btn-open">
+        <div class="info">
+            <div class="carrito">
+                <img src="../assets/images/carritocompras.svg" loading="lazy" alt="ico">
+            </div>
+            <span><span class="light">Compra tus</span> productos</span>
+        </div>
+    </div>
+    <div class="general">
+        <div class="back">
+        </div>
+        {% for shop in shops %}
+            <div class="box">
+                <a href="{{ shop.url }}" target="_blank">
+                    {% set image = Image(shop.logo) %}
+                    <picture>
+                        <source srcset="{{ image.src|resize(76)|towebp(100) }}" type="image/webp">
+                        <source srcset="{{ image.src|resize(76)|tojpg }}" type="image/jpeg">
+                        <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+                    </picture>
+                    <div class="arrow-btn">
+                        <img src="../assets/images/flechasdobles.svg" loading="lazy" alt="ico">
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

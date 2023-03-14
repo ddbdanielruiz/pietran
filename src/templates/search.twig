@@ -1,0 +1,242 @@
+{% extends "base.twig" %}
+
+{% block content %}
+{% set result_counter = products|length + recipes|length + posts|length %}
+<div class="page-general__banner-search">
+    <img src="../assets/images/bg-pro.jpg" alt="image" class="forma">
+    <img src="../assets/images/h3.png" alt="image" class="h3">
+    <img src="../assets/images/h2.png" alt="image" class="h2">
+    <div class="page-general__miga--only">
+        {% include "partial/breadcrumb.twig" %}
+    </div><!-- miga -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="text">
+                    <h1>¿Qué estás buscando? <img src="../assets/images/s1.png" alt="image" class="h1"></h1>
+                
+                    <div class="box-desk">
+                        <form action="{{ site.link }}">
+                            <i class="lni lni-search-alt"></i>
+                            <input type="text" name="s" placeholder="Ingresa tu búsqueda">
+                            <button>BUSCAR</button>
+                        </form>
+
+                        {% if result_counter == 0 %}
+                            <span class="msn">No hay resultados para “{{ search_query }}”</span>
+                        {% endif %}
+                    </div>
+                    <div class="box-mobile">
+                        <form action="{{ site.link }}" name="s">
+                            <div class="box-search">
+                                <i class="lni lni-search-alt"></i>
+                                <input type="text" name="s" value="{{ search_query }}" placeholder="Ingresa tu búsqueda">
+                            </div>
+
+                            <span class="msn">{% if result_counter == 0 %}No hay resultados para “{{ search_query }}”{% endif %}</span>
+                            
+                            <button>BUSCAR</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- slider -->
+
+{% if result_counter > 0 %}
+    <div class="page-general__find-msn">
+        <div class="container">
+            <div class="mini-text">
+                <h2>Resultados búsqueda <span>“{{ search_query }}”</span></h2>
+                <p id="counter">{{ result_counter }} resultado{% if result_counter > 1 %}s{% endif %}</p>
+            </div>
+            
+            <div class="filter-search">
+                <span>FILTRA TU BÚSQUEDA</span>
+                <div class="parent-check">
+                    
+                    <input type="hidden" name="action" value="async_search" />
+                    <input type="hidden" name="search_term" value="{{ search_terms }}" />
+
+                    <div class="check">
+                        <input type="checkbox" id="s1" value="page-general__sliders--search" data-name="productos" class="search-filters filters" name="filter[]">
+                        <label for="s1">Productos</label>
+                    </div>
+                    <div class="check">
+                        <input type="checkbox" id="s2" value="page-general__recipes-home" data-name="recetas" class="search-filters filters" name="filter[]">
+                        <label for="s2">Recetas</label>
+                    </div>
+                    <div class="check">
+                        <input type="checkbox" id="s3" value="page-general__world-home" data-name="posts" class="search-filters filters" name="filter[]">
+                        <label for="s3">Mi mundo saludable</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if products %}
+    <div class="page-general__sliders page-general__sliders--search result-container" data-count="{{ products|length }}">
+        <div class="parent-slide" id="pescados" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+            <div class="container">
+                <h2>Productos <div class="arrow-custom"><img src="../assets/images/izq2.svg" alt="icon" class="customPrevBtn"> <img src="../assets/images/derecha2.svg" alt="ico" class="customNextBtn"></div></h2>
+
+                <div class="products-slider">
+                    <div class="owl-carousel owl-theme">
+
+                        {% for product in products %}
+                             {% set category = product.terms('categorias_de_producto')|first %}
+                            <div class="item">
+                                <a href="{{ product.link }}">
+                                    <div class="box-image">
+                                        <!--<picture>
+                                            <img src="../assets/images/salmon-natural.png" alt="image">
+                                        </picture>-->
+                                        {% set thumb = product.thumbnail %}
+
+                                        <picture>
+                                            <source srcset="{{ thumb.src|resize(174)|towebp(100) }}" type="image/webp">
+                                            <source srcset="{{ thumb.src|resize(174)|tojpg }}" type="image/jpeg">
+
+                                            <img src="{{ thumb.src }}" alt="{{ thumb.alt }}" class="image">
+                                        </picture>
+
+                                    </div>
+                                    <div class="info-text">
+
+                                        {% if category.meta('color_tag') %}
+                                            {% set tag_color = category.meta('color_tag') %}
+                                        {% else %}
+                                            {% set tag_color = category.meta('color') %}
+                                        {% endif %}
+
+                                        <span class="tag" style="color: {{ tag_color }};">{{ product.name }}</span>
+                                        <div class="start-section">
+                                            {% set rating = fn('wp_rating_average_by_object_id', product.id) %}
+                                            {% include 'partial/rating/stars.twig' %}
+                                        </div>
+                                        <h3>{{ product.title }}</h3>
+                                        <!--<span class="gr">420 gr</span>-->
+
+                                        <p>{{ product.preview.length(20).read_more(false) }}</p>
+                                    </div>
+                                    <span class="btn-recipes">Ver producto  <img src="../assets/images/ver.svg" alt="icon"></span>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if recipes %}
+    <div class="page-general__recipes-home page-general__recipes-home--recipespage page-general__recipes-home--search result-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0" data-count="{{ recipes|length }}">
+        <div class="container">
+            <h2>Recetas</h2>
+            <div class="recipes-search">
+                <div class="owl-carousel owl-themes">
+                    {% for recipe in recipes %}
+                        {% set category = recipe.terms('categorias_de_producto')|first %}
+                        <div class="item">
+                            <div class="box">
+                                <div class="image-box">
+
+                                    {% if category.meta('color_tag') %}
+                                        {% set tag_color = category.meta('color_tag') %}
+                                    {% else %}
+                                        {% set tag_color = category.meta('color') %}
+                                    {% endif %}
+
+                                    <a href="{{ product_page.link }}#{{ category.name }}" class="tag" style="background: {{ tag_color }};">{{ category.name }}</a>
+                                    <a href="{{ recipe.link }}">
+
+                                        {% set featured = recipe.thumbnail %}
+
+                                        <picture>
+                                            <source srcset="{{ featured.src|resize(394, 435)|towebp(100) }}" type="image/webp">
+                                            <source srcset="{{ featured.src|resize(394, 435)|tojpg }}" type="image/jpeg">
+
+                                            <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                                        </picture>
+
+                                        <!--<picture>
+                                            <img src="../assets/images/receta1.jpg" alt="image">
+                                        </picture>-->
+                                    </a>
+                                </div>
+                                <a href="{{ recipe.link }}">
+                                    <div class="start-section">
+                                        {% set rating = fn('wp_rating_average_by_object_id', recipe.id) %}
+                                        {% include 'partial/rating/stars.twig' %}
+                                    </div>
+                                    <h3>{{ recipe.title }}</h3>
+                                    <div class="items-info">
+                                        {% if recipe.meta('calorias') is not empty %}
+                                            <span><img src="../assets/images/cal.svg" alt="icon"> {{ recipe.meta('calorias') }} cal</span>
+                                        {% endif %}
+
+                                        {% if recipe.meta('tiempo') is not empty %}
+                                            <span><img src="../assets/images/time.svg" alt="icon">{{ recipe.meta('tiempo') }} minuto{% if recipe.meta('tiempo')|number_format > 1 %}s{% endif %}</span>
+                                        {% endif %}
+
+                                        {% if recipe.meta('porciones') is not empty %}
+                                            {% if recipe.meta('porciones')|number_format == 1 %}
+                                                {% set portion_text = 'porción' %}
+                                            {% else %}
+                                                {% set portion_text = 'porciones' %}
+                                            {% endif %}
+                                            <span><img src="../assets/images/porciones.svg" alt="icon"> {{ recipe.meta('porciones') }} {{ portion_text }}</span>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                                <a href="{{ recipe_page.link }}" class="btn-recipes">Descúbrela aquí <img src="../assets/images/ver.svg" alt="icon"></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div><!-- recipes home -->
+{% endif %}
+
+{% if posts %}
+    <div class="page-general__world-home page-general__world-home--search result-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0" data-count="{{ posts|length }}">
+        <div class="container">
+            <h2>Mi mundo saludable</h2>
+            <div class="world-slider">
+                <div class="owl-carousel owl-theme">
+                    {% for p in posts %}
+                        {% set featured = p.thumbnail %}
+
+                        <div class="item">
+                            <a href="{{ p.link }}">
+                                <div class="box-image">
+                                    <picture>
+                                        <source srcset="{{ featured.src|resize(395, 296)|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ featured.src|resize(395, 296)|tojpg }}" type="image/jpeg">
+
+                                        <img src="{{ featured.src }}" alt="{{ featured.alt }}">
+                                    </picture>
+                                </div>
+                                <div class="info-text">
+                                    <span class="date">
+                                        <img src="../assets/images/calendar.svg" alt="image" loading="lazy">
+                                        {{ p.date }}
+                                    </span>
+                                    <h3>{{ p.title }}</h3>
+
+                                    <span class="btn-recipes">Leer más <img src="../assets/images/ver.svg" alt="icon"></span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div><!-- world slider -->
+{% endif %}
+{% endblock %}

@@ -1,0 +1,388 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    {#{ dump(categories[0].posts(-1, 'post')) }#}
+
+    <div class="modals__filters modals__filters--two">
+        <div class="container">
+            <div class="row">
+                <div class="col-9">
+                    <h2>Filtrar</h2>
+                </div>
+                <div class="col-3">
+                    <img src="../assets/images/xblue.svg" alt="image" class="close-filters">
+                </div>
+            </div>
+            <div class="box">
+                <h3>Tema</h3>
+                <div class="parent-check">
+                    <div class="checksparent news-categories">
+                        {% for category in categories if not (category.id == 1) %}
+                            <div class="check">
+                                <input type="checkbox" id="chk-{{ category.id }}" value="{{ category.id }}" data-name="{{ category.name }}" class="filters" name="category[]">
+                                <label for="chk-{{ category.id }}">{{ category.name }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <h3>Ordenar</h3>
+                <div class="parent-check parent-ipad">
+                    <div class="checksparent">
+                        <div class="check">
+                            <input type="radio" id="chm2-1" value="desc" data-name="xxx" class="filters order-filter" name="order[]">
+                            <label for="chm2-1">Más nuevo</label>
+                        </div>
+                        <div class="check">
+                            <input type="radio" id="chm2-2" value="asc" data-name="xxx" class="filters order-filter" name="order[]">
+                            <label for="chm2-2">Más antiguo</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-btns">
+                <a href="#" class="clear">Limpiar Filtros</a>
+                <a href="#" class="full-filter">
+                    <img src="../assets/images/filtrow.svg" alt="image">
+                    FILTRAR
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page-general__banner-world">
+        <picture>
+            <source srcset="{{ theme.link }}/src/assets/images/background_mobile.svg" media="(max-width: 680px)">
+            <img src="../assets/images/forma-green.svg" alt="image" class="forma">
+        </picture>
+        <div class="container">
+            <div class="page-general__miga page-general__miga--recipes">
+                {% include "partial/breadcrumb.twig" %}
+            </div><!-- miga -->
+            <div class="row">
+                <div class="col-md-12 col-lg-7">
+                    <div class="text">
+                        <h1>{{ post.title }}</h1>
+                        {{ post.content }}
+
+                        <div class="parent-imgbanner mobile">
+                            <img src="../assets/images/form1.svg" alt="image" class="form1 parallax_scroll">
+                            <img src="../assets/images/form2.svg" alt="image" class="form2 parallax_scroll">
+                            <img src="../assets/images/form4.svg" alt="image" class="form3 parallax_scroll">
+                            <img src="../assets/images/form5.svg" alt="image" class="form4 parallax_scroll">
+                            <picture>
+                                <img src="../assets/images/bannerbig.png" alt="image" class="mainimg">
+                            </picture>
+                        </div>
+
+                        <div class="circle-images">
+                            {% for category in categories if not (category.id == 1) %}
+                                <a href="javascript:void(0);" data-id="{{ category.id }}" class="circle">
+                                    {% set image = Image(category.meta('imagen')) %}
+
+                                    <picture>
+                                        <source srcset="{{ image.src|resize(138, 126)|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ image.src|resize(138, 126)|tojpg }}" type="image/jpeg">
+                                        
+                                        <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy">
+                                    </picture>
+
+                                    <span>{{ category.name }}</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-5">
+                    <div class="parent-imgbanner">
+                        <img src="../assets/images/form1.svg" alt="image" class="form1 parallax_scroll">
+                        <img src="../assets/images/form2.svg" alt="image" class="form2 parallax_scroll">
+                        <img src="../assets/images/form4.svg" alt="image" class="form3 parallax_scroll">
+                        <img src="../assets/images/form5.svg" alt="image" class="form4 parallax_scroll">
+                        <picture>
+                            {% set featured = post.thumbnail %}
+                            <source srcset="{{ featured.src|towebp(100) }}" type="image/webp">
+                            <source srcset="{{ featured.src|tojpg }}" type="image/jpeg">
+                            <img src="{{ featured.src }}" alt="{{ featured.alt }}"  class="mainimg" loading="lazy">
+                        </picture>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- slider -->
+
+    {% set slider = post.meta('noticias_destacadas') %}
+    {% if false and slider %}
+        <div class="page-general__slider-world2">
+            <div class="container">
+                <div class="sliderworld2">
+                    <div class="owl-carousel owl-theme">
+                
+                        {% for news in slider %}
+                            {% set category = news.terms('category')|first %}
+                            {% set featured = news.thumbnail %}
+                            <div class="item">
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <picture>
+                                            <source srcset="{{ featured.src|resize(427, 424)|towebp(100) }}" type="image/webp">
+                                            <source srcset="{{ featured.src|resize(427, 424)|tojpg }}" type="image/jpeg">
+
+                                            <img src="{{ featured.src|resize(427, 424) }}" alt="{{ featured.alt }}" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="text">
+                                            <span class="tag">{{ category.name }}</span>
+                                            <h2>{{ news.title }}</h2>
+
+                                            <p>{{ news.preview.length(25).read_more(false) }}</p>
+                                            <span class="date">
+                                                <img src="../assets/images/calendar.svg" alt="image">
+                                                {{ news.date }}
+                                            </span>
+                                            <a href="{{ news.link }}" class="btn-recipes">Leer más <img src="../assets/images/ver.svg" alt="icon"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div><!-- slider -->
+    {% endif %}
+    <div class="page-general__calculator-mobile">
+        <div class="container">
+            <div class="wrapper">
+                <picture>
+                    <img src="../assets/images/cora.svg" alt="ico">
+                </picture>
+                <h3>¿Para qué sirve<br> calcular el IMC?</h3>
+                <p>Es un indicador de la relación entre el peso y la estatura y es utilizado frecuentemente para <strong>clasificar el estado nutricional en adultos. (OMS)</strong></p>
+                <a href="#calcular" class="btn-anchor scrollsearch"><img src="../assets/images/cora.svg" alt="ico"> CALCULAR MI IMC</a>
+                <small>Calcular índice de masa corporal</small>
+            </div>
+        </div>
+    </div>
+    <!-- aqui agrego active calculator como clase para abrir el slide -->
+    <div class="page-general__filter-big">
+        <div class="button-filter">
+            <picture>
+                <img src="../assets/images/cora.svg" alt="ico">
+            </picture>
+            <span>Calcular mi Índice de Masa Corporal (IMC)</span>
+        </div>
+        <div class="container">
+            <div class="left-content">
+                <div class="box-calculator">
+                    <div class="hidden-btn">
+                        <span>Ocultar <img src="../assets/images/flecha-arriba.svg" alt="ico"></span>
+                    </div>
+                    <h2>Calcular mi Índice de Masa Corporal (IMC)</h2>
+
+                    <div class="box-top">
+                        <picture>
+                            <img src="../assets/images/cora.svg" alt="ico">
+                        </picture>
+                        <h3>¿Para qué sirve calcular el IMC?</h3>
+                        <p>Es un indicador de la relación entre el peso y la estatura y es utilizado frecuentemente para <strong>clasificar el estado nutricional en adultos.</strong> (OMS)</p>
+                    </div>
+
+                    <h3>Introduce tus datos para calcular tu IMC</h3>
+                    <div class="box-range">
+                        <div class="big-tooltip">
+                            <div class="title">
+                                <picture>
+                                    <img src="../assets/images/ico_estatura.svg" alt="">
+                                </picture>
+                                <h4>Talla o estatura</h4>
+                            </div>
+                            <div class="text">
+                                <p>Es la distancia desde la base inferior de los pies  a la parte más alta de la cabeza.</p>
+                            </div>
+                        </div>
+                        <h4>Talla o estatura:</h4>
+                        <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="300" data-slider-step="1" data-slider-value="1"/>
+                    </div>
+
+                    <div class="box-range">
+                        <div class="big-tooltip">
+                            <div class="title">
+                                <picture>
+                                    <img src="../assets/images/ico_peso.svg" alt="">
+                                </picture>
+                                <h4>Peso</h4>
+                            </div>
+                            <div class="text">
+                                <p>Es la cantidad de masa de un individuo en función del músculo, grasa, huesos, órganos, agua y componentes minoritarios que constituyen el total de la composición corporal.</p>
+                            </div>
+                        </div>
+                        <h4>Peso:</h4>
+                        <input id="ex2" data-slider-id='ex2Slider' type="text" data-slider-min="1" data-slider-max="300" data-slider-step="1" data-slider-value="1"/>
+                    </div>
+
+                    <div class="box-btn" id="calc-imc">
+                        <a href="javascript: void(0);" class="btn-blue">CALCULAR</a>
+                    </div>
+                </div>
+                <div class="box-shape" style="display:none">
+                    <h3>Tu índice es:</h3>
+                    <div class="parent">
+                        <div class="count-box">
+                            <picture>
+                                <img src="../assets/images/indice.svg" alt="image">
+                            </picture>
+                            <div class="circle-move" style="transform: rotate(130deg);">
+                            </div>
+                            <div class="text-info">
+                                <h5>0</h5>
+                                <span class='text-title'></span>
+                                <p class='text-description'></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="only-text">
+                            <p>El IMC debe interpretarse en conjunto con otros indicadores del estado nutricional.</p>
+                            <p class="text-message"><strong></strong></p>
+                        </div>
+                        <div class="social-btn social-share">
+                            <picture>
+                                <img src="../assets/images/ico-compartir.svg" alt="ico" loading="lazy">
+                            </picture>
+                            Compartir
+
+                            <div class="share-icons">
+                                <a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ post.link }}','popup','width=600,height=600'); return false;"><img src="../assets/images/facebook.svg" alt="ico"></a>
+                                <a href="{{ post.link }}" class="copy-href-to-clipboard"><img src="../assets/images/url.svg" alt="ico"></a>
+                                <a href="mailto:?subject={{ post.tile }}&body={{ post.link }}"><img src="../assets/images/mail.svg" alt="ico"></a>
+                                <a href="https://wa.me/?text={{ post.link }}" target="_blank"><img src="../assets/images/whatsapp.svg" alt="ico"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content">
+                <div class="row row-top">
+                    <div class="col-md-9 col-desk">
+                        <div class="parent-filter-nav">
+                            <div class="filter-nav">
+                                <ul>
+                                    <li class="active"><a href="#">TODOS</a></li>
+                                    {% for category in categories if not (category.id == 1) %}
+                                        <li data-category-id="{{ category.id }}" ><a href="{{ category.link }}" class="tab-{{ category.id }}" data-category-id='{{ category.id }}'  data-redirect="{{ category.meta('redireccionar_interna') == 'SI'  }}">{{ category.name|upper }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                                <i class="active-marker"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-desk">
+                        <div class="order-parent">
+                            <a href="#" class="btn-mobile-fil btn-order">
+                                <img src="../assets/images/ordenar.svg" alt="ico">
+                                ORDENAR
+                            </a>
+                            <div class="parent-check parent-ipad">
+                                <div class="checksparent">
+                                    <div class="check">
+                                        <input type="checkbox" id="order-1" value="desc" data-name="Más nueva" class="filters order-filter" name="order[]">
+                                        <label for="order-1">Más nueva</label>
+                                    </div>
+
+                                    <div class="check">
+                                        <input type="checkbox" id="order-2" value="asc" data-name="Más antigua" class="filters order-filter" name="order[]">
+                                        <label for="order-2">Más antigua</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-mobile">
+                        <a href="#" class="btn-mobile-fil btn-filter">
+                            <img src="../assets/images/filtro.svg" alt="ico">
+                            FILTRAR Y ORDENAR
+                        </a>
+                    </div>
+                </div>
+
+                <div class="result healthy-world-content healthy-world-result">
+                    <input id="current-page-number" type="hidden" name="page" value="1" />
+                    <div class="row" id="result-container">
+                        {% include 'partial/news/news-items.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-general__modal-shape">
+        <div class="close-blue">
+            <a href="#"><img src="../assets/images/xblue.svg" alt="images"></a>
+        </div>
+        <div class="box-shape">
+            <h3>Tu índice es:</h3>
+            <div class="parent">
+                <div class="count-box">
+                    <picture>
+                        <img src="../assets/images/indice.svg" alt="image">
+                    </picture>
+                    <div class="circle-move" style="transform: rotate(130deg);"> 
+                    </div>
+                    <div class="text-info">
+                        <h5>0</h5>
+                        <span class="text-title"></span>
+                        <p class="text-description"></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="only-text">
+                    <p>El IMC debe interpretarse en conjunto con otros indicadores del estado nutricional.</p>
+                    <p class='text-message'><strong></strong></p>
+                </div>
+                <div class="social-btn social-share-mobile">
+                    <picture>
+                        <img src="../assets/images/ico-compartir.svg" alt="ico" loading="lazy">
+                    </picture>
+                    Compartir
+                </div>
+            </div>
+        </div>
+        <div class="box-btn">
+            <a href="#" class="btn-blue return-calculate">VOLVER A CALCULAR</a>
+        </div>
+        <div class="social-fixed-mobile">
+            <div class="title">
+                <span>Compartir</span>
+                <img src="../assets/images/flechaabajo.svg" alt="image" loading="lazy">
+            </div>
+            <a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ post.link }}','popup','width=600,height=600'); return false;"><img src="../assets/images/facebook.svg" alt="ico"></a>
+            <a href="{{ post.link }}" class="copy-href-to-clipboard"><img src="../assets/images/url.svg" alt="ico"></a>
+            <a href="mailto:?subject={{ post.tile }}&body={{ post.link }}"><img src="../assets/images/mail.svg" alt="ico"></a>
+            <a href="https://wa.me/?text={{ post.link }}" target="_blank"><img src="../assets/images/whatsapp.svg" alt="ico"></a>
+        </div>
+    </div>
+    <div class="page-general__slides-mobile" id="calcular">
+        <div class="container">
+            <div class="left-content">
+                <div class="box-calculator">
+                    <h2>Calcular mi Índice de Masa Corporal (IMC)</h2>
+
+                    <h3>Introduce tus datos para calcular tu IMC</h3>
+                    <div class="box-range">
+                        <h4>Talla o estatura:</h4>
+                        <input id="ex1m" data-slider-id='ex1Sliderm' type="text" data-slider-min="1" data-slider-max="300" data-slider-step="1" data-slider-value="1" />
+                    </div>
+
+                    <div class="box-range">
+                        <h4>Peso:</h4>
+                        <input id="ex2m" data-slider-id='ex2Sliderm' type="text" data-slider-min="1" data-slider-max="300" data-slider-step="1" data-slider-value="1"/>
+                    </div>
+
+                    <div class="box-btn">
+                        <a href="#" class="btn-blue calcular-mobile">CALCULAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

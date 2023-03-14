@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="10px" viewBox="0 0 11 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Flecha izq</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.070588 0 0 0 0 0.337255 0 0 0 0 0.364706 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="12_Contacto_Sugerencia" transform="translate(-1255.000000, -276.000000)">
+            <g id="Formulario" transform="translate(597.000000, 251.000000)">
+                <g id="Group-2" transform="translate(659.000000, 20.000000)">
+                    <g id="Group-Copy" transform="translate(4.500000, 10.000000) scale(-1, 1) translate(-4.500000, -10.000000) translate(0.000000, 6.000000)" filter="url(#filter-1)">
+                        <g transform="translate(4.500000, 4.000000) rotate(-270.000000) translate(-4.500000, -4.000000) translate(0.571029, -0.581352)">
+                            <polyline id="Path-10" stroke="#FFFFFF" stroke-width="1.20261438" points="0 3.7715313 3.92897134 0 7.85794269 3.7715313"></polyline>
+                            <line x1="3.92897134" y1="0" x2="3.92897134" y2="9.16270363" id="Path-11" stroke="#FFFFFF" stroke-width="1.20261438"></line>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

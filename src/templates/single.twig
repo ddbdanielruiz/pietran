@@ -1,0 +1,137 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <style>
+        body {
+            overflow: initial;
+        }
+    </style>
+
+    {% include "partial/modal-opinion.twig" %}
+
+    {% set category = post.category() %}
+    <div class="page-general__banner-int-article">
+        <img src="../assets/images/background-article.svg" alt="image" class="forma">
+        <div class="page-general__miga--only">
+            {% include "partial/breadcrumb.twig" %}
+        </div><!-- miga -->
+        <div class="container-left">
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="text">
+                        <div class="top-date">
+                            <div class="tag">{{ category|upper }}</div>
+                            <span class="date">
+                                <img src="../assets/images/calendar.svg" alt="image">
+                                {{ post.date }}
+                            </span>
+                        </div>
+                        <h1>{{ post.title }}</h1>
+                        {{ post.meta('descripcion_corta') }}
+                        <div class="top-date mobile">
+                            <span class="date">
+                                <img src="../assets/images/calendar.svg" alt="image">
+                                {{ post.date }}
+                            </span>
+                        </div>
+                        <div class="start-section post-rating">
+                            {% set rating = fn('wp_rating_average_by_object_id', post.id) %}
+    
+                            {% include 'partial/rating/stars.twig' %}
+                            <p class="comments-number comment-counter">{{ post.comments|length }} comentarios</p>
+                        </div>
+                        <div class="icons-social">
+                            <img src="../assets/images/ico-compartir.svg" class="compartirm" alt="image">
+                            Compartir
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="parent-imgbanner">
+                        {% set thum = Image(post.meta('imagen_interna')) %}
+                        <picture>
+                            <source srcset="{{ thum.src|resize(676, 539)|towebp(100) }}" type="image/webp">
+                            <source srcset="{{ thum.src|resize(676, 539)|tojpg }}" type="image/jpeg">
+                            <img src="{{ thum.src }}" alt="{{ thum.alt }}" class="mainimg">
+                        </picture>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- slider -->
+    <div class="page-general__single-wrapper">
+        <div class="container single-content">
+            <div class="row">
+                <div class="col-md-2 col-sticky">
+                    <div class="stick">
+                        <a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ post.link }}','popup','width=600,height=600'); return false;"><img src="../assets/images/facebook.svg" alt="ico"></a>
+                        <a href="{{ post.link }}" class="copy-href-to-clipboard"><img src="../assets/images/url.svg" alt="ico"></a>
+                        <a href="mailto:?subject={{ post.tile }}&body={{ post.link }}"><img src="../assets/images/mail.svg" alt="ico"></a>
+                        <a href="https://wa.me/?text={{ post.link }}" target="_blank"><img src="../assets/images/whatsapp.svg" alt="ico"></a>
+
+                    </div>
+                </div>
+                <div class="col-md-8 col-main">
+                    {{ post.content }}
+                    <div class="tags-box">
+                        {% for tag in post.tags() %}
+                            <span class="tag">{{ tag.name|upper }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-2 col-span"></div>
+            </div>
+        </div>
+    </div><!-- single -->
+
+    {% set related_posts = category.posts({
+        post__not_in : [post.id],
+        posts_per_page: 6,
+    }) %}
+
+    {% if related_posts %}
+        <div class="page-general__world-home page-general__world-home--releated" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="0">
+            <div class="container">
+                <h2>Artículos <span>relacionados</span></h2>
+                <div class="world-slider">
+                    <div class="owl-carousel owl-theme">
+                        {% for p in related_posts %}
+                            <div class="item">
+                                <a href="{{ p.link }}">
+                                    <div class="box-image">
+                                        {% set featured = p.thumbnail %}
+                                        <picture>
+                                            <source srcset="{{ featured.src|resize(395, 396)|towebp(100) }}" type="image/webp">
+                                            <source srcset="{{ featured.src|resize(395, 396)|tojpg }}" type="image/jpeg">
+                                            <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="info-text">
+                                        <span class="date">
+                                            <img src="../assets/images/calendar.svg" alt="image">
+                                            {{ p.date }}
+                                        </span>
+                                        <h3>{{ p.title }}</h3>
+                                        <span class="btn-recipes">Leer más <img src="../assets/images/ver.svg" alt="icon"></span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div><!-- world slider -->
+    {% endif %}
+    <div class="page-general__fixed-mobile-social">
+        <div class="social-fixed-mobile">
+            <div class="title">
+                <span>Compartir</span>
+                <img src="../assets/images/flechaabajo.svg" alt="image">
+            </div>
+            <a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ post.link }}','popup','width=600,height=600'); return false;"><img src="../assets/images/facebook.svg" alt="ico"></a>
+            <a href="{{ post.link }}" class="copy-href-to-clipboard"><img src="../assets/images/url.svg" alt="ico"></a>
+            <a href="mailto:?subject={{ post.tile }}&body={{ post.link }}"><img src="../assets/images/mail.svg" alt="ico"></a>
+            <a href="https://wa.me/?text={{ post.link }}" target="_blank"><img src="../assets/images/whatsapp.svg" alt="ico"></a>
+        </div>
+    </div>
+{% endblock %}

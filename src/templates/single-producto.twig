@@ -1,0 +1,229 @@
+{% extends "base.twig" %}
+
+{% block content %}
+{% include "partial/modal-opinion.twig" %}
+<div class="load-page">
+    <svg width="1920px" height="419px" viewBox="0 0 1920 419" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="shampe2-copy" transform="translate(0.400000, -0.000029)" fill="#FFFFFF">
+                <path d="M878.271875,0 C1674.35,0 1606.04687,0 1920,0 L1920,418.000029 L0,418.000029 L0,0 C153.545312,0 308.88125,0 878.271875,0 Z" id="Combined-Shape"></path>
+            </g>
+            <g id="shape1" transform="translate(0.000000, 0.283445)" fill="#FFFFFF">
+                <path d="M1018.8,149.816555 C1285.8,70.0165553 1702.4,-11.3834447 1920,1.31655532 L1920,418.016555 L0,418.016555 L0,267.816555 C119,345.716555 458.5,306.316555 1018.8,149.816555 Z" id="Combined-Shape1" style="visibility:hidden"></path>
+            </g>
+            <g id="shampe2" transform="translate(0.400000, 0.000000)" fill="#FFFFFF">
+                <path d="M814,251 C1603.2,4.5 1608,325 1920,285 L1920,418 L0,418 L0,0 C118.9,78 253.7,407.8 814,251 Z" id="Combined-Shape2" style="visibility:hidden"></path>
+            </g>
+        </g>
+    </svg>
+</div>
+<div class="page-general__page-int">
+    <style>
+        .page-general__page-int {
+            padding-top: 0;
+        }
+        .header.header-int {
+            background: transparent !important;
+        }
+        .header.header-scroll {
+            background: white !important;
+        }
+        .page-general__miga--only {
+            margin-bottom: 6rem;
+        }
+        /* admin color miga */
+        .page-general__miga--only .last {
+            color: #1A7C86;
+        }
+        @media (max-width: 1100px) {
+            .header.header-int {
+                background: var(--white) !important;
+            }
+        }
+        @media (max-width: 680px) {
+            .page-general__miga--only {
+                margin-bottom: 4rem;
+            }
+        }
+    </style>
+    {% set category = post.terms('categorias_de_producto')|first %}
+    <div class="page-general__banner-int-product" style="background: {{ category.meta('color') }};">
+        <div class="page-general__miga--only">
+            {% include "partial/breadcrumb.twig" %}
+        </div><!-- miga -->
+        <div class="container">
+            <div class="deco-banner">
+                {% for deco in post.meta('decoracion_contenido_superior') %}
+                    <picture>
+                        {% set image = Image(deco.imagen) %}
+                        <source srcset="{{ image.src|towebp(100) }}" type="image/webp">
+                        <source srcset="{{ image.src|tojpg }}" type="image/jpeg">
+                        <img src="{{ image.src }}" alt="{{ image.alt }}" class="flotante{{ loop.index }}" loading="lazy">
+                    </picture>
+                {% endfor %}
+            </div>
+
+            {% set style_hidden = '' %}
+            
+            {% if prev_post.id == next_post.id %}
+                {% set style_hidden = 'visibility:hidden' %}
+            {% endif %}
+
+            <div class="box-slider-fake">
+                <div class="main-image">
+                    <span class="category" style="color: {{ post.meta('color_del_texto_contenido_superior') }};">{{ category.name|upper }}</span>
+                    <h1 style="color: {{ post.meta('color_del_texto_contenido_superior') }};">{{ post.title }}</h1>
+                    {% if prev_post %}
+                        <a style="{{ style_hidden }}" href="{{ prev_post.link }}" class="navigation-prev"><img src="../assets/images/izq2.svg" alt="producto anterior" loading="lazy"></a>
+                    {% endif %}
+
+                    {% if next_post %}
+                        <a href="{{ next_post.link }}" class="navigation-next"><img src="../assets/images/derecha2.svg" alt="producto siguiente" loading="lazy"></a>
+                    {% endif %}
+                    <picture>
+                        {% set image = Image(post.meta('imagen_principal')) %}
+                        {% if image %}
+                            <source srcset="{{ image.src|resize(450)|towebp(100) }}" type="image/webp">
+                            <source srcset="{{ image.src|resize(450)|tojpg }}" type="image/jpeg">
+                            <img src="{{ image.src }}" alt="{{ image.alt }}" class="big-img" loading="lazy">
+                        {% endif %}
+                    </picture>
+                    <div class="start-section post-rating">
+                        {% set rating = fn('wp_rating_average_by_object_id', post.id) %}
+                        {% include 'partial/rating/stars.twig' %}
+                        <p class="comments-number comment-counter">{{ post.comments|length }}  comentarios</p>
+                    </div>
+                </div>
+                
+                {% if prev_post %}                    
+                    <div class="prev-image" style="{{ style_hidden }}">
+                        <a href="{{ prev_post.link }}">
+                            {% set prev_image = Image(prev_post.meta('miniatura_contenido_superior')) %}
+                            <picture>
+                                <source srcset="{{ prev_image.src|resize(178)|towebp(100) }}" type="image/webp">
+                                <source srcset="{{ prev_image.src|resize(178)|tojpg }}" type="image/jpeg">
+                                <img src="{{ prev_image.src }}" alt="{{ prev_image.alt }}" loading="lazy">
+                            </picture>
+                        </a>
+                    </div>
+                {% endif %}
+
+                {% if next_post %}
+                    <div class="next-image">
+                        <a href="{{ next_post.link }}">
+                            {% set next_image = Image(next_post.meta('miniatura_contenido_superior')) %}
+                            <picture>
+                                <source srcset="{{ next_image.src|resize(178)|towebp(100) }}" type="image/webp">
+                                <source srcset="{{ next_image.src|resize(178)|tojpg }}" type="image/jpeg">
+                                <img src="{{ next_image.src }}" alt="{{ next_image.alt }}" loading="lazy">
+                            </picture>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="page-general__text-description">
+        <div class="container">
+            <div class="start-section">
+                {% set rating = fn('wp_rating_average_by_object_id', post.id) %}
+                {% include 'partial/rating/stars.twig' %}
+                <p class="comments-number comment-counter">{{ post.comments|length }} <span>comentarios</span></p>
+            </div>
+            
+            {{ post.content }}
+
+            {% set properties = post.meta('propiedades') %}
+            {% if properties %}
+                <div class="row" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100">
+                    {% for property in properties %}
+                        <div class="col-4 col-md-4">
+                            <picture>
+                                {% set icon = Image(property.icono) %}
+                                <source srcset="{{ icon.src|resize(92, 92)|towebp(100) }}" type="image/webp">
+                                <source srcset="{{ icon.src|resize(92, 92)|tojpg }}" type="image/jpeg">
+                                <img src="{{ icon.src }}" alt="{{ icon.alt }}" loading="lazy">
+                            </picture>
+                            <p>{{ property.descripcion_corta }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    {% set video =  post.meta('video') %}
+    {% if video %}
+        <div class="modals__modal-video">
+            <div class="capclose"></div>
+            <a href="#" class="close-m"><img src="../assets/images/close-m.svg" alt="ico" loading="lazy"></a>
+            {{ video }}
+        </div>
+    {% endif %}
+
+    {% set presentations = post.meta('presentaciones') %}
+    {% if presentations %}
+        <div class="page-general__presentation">
+            <div class="container box-presentation" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100">
+                <div class="cap-color" style="background: {{ category.meta('color')|default('#91D7DF') }};"></div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h2 style="color: {{ post.meta('color_del_texto_presentaciones') }};">{{ post.meta('titulo_presentaciones') }}</h2>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="slider-image-mini">
+                            <div class="owl-carousel owl-theme">
+                                {% for presentation in presentations %}
+                                    <div class="item">
+                                        {% set presentation_image = Image(presentation.imagen) %}
+                                        <picture>
+                                            <source srcset="{{ presentation_image.src|resize(226)|towebp(100) }}" type="image/webp">
+                                            <source srcset="{{ presentation_image.src|resize(226)|tojpg }}" type="image/jpeg">
+                                            <img src="{{ presentation_image.src }}" alt="{{ presentation_image.alt }}" loading="lazy">
+                                        </picture>
+                                        <h2 style="color: {{ post.meta('color_del_texto_presentaciones') }};">{{ presentation.titulo }} <span>{{ presentation.subtitulo }}</span></h2>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-general__nutricional">
+            <div class="container" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100">
+                <div class="slider-nutricional">
+                    <div class="owl-carousel owl-theme">
+                        {% for presentation in presentations %}
+                            {% include 'partial/products/nutritional-information-item.twig' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% include 'partial/recommended-recipes.twig' %}
+    {% if video %}
+        <div class="page-general__video-section" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100">
+            <div class="big-image">
+                {% set poster = Image(post.meta('poster_del_video')) %}
+                <picture>
+                    <source srcset="{{ poster.src|resize(1441)|towebp(100) }}" type="image/webp">
+                    <source srcset="{{ poster.src|resize(1441)|tojpg }}" type="image/jpeg">
+                    <img src="{{ poster.src }}" alt="{{ poster.alt }}" loading="lazy">
+                </picture>
+                <div class="text-description">
+                    <img src="../assets/images/ico-play.svg" alt="image" class="play-ico" loading="lazy">
+                    <h3>{{ post.meta('titulo_del_video') }}</h3>
+                    {% if post.meta('duracion_del_video') %}
+                        <span class="time">{{ post.meta('duracion_del_video') }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% include 'partial/product-releated.twig' %}
+</div>
+{% endblock %}

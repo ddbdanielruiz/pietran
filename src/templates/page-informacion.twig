@@ -1,0 +1,119 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="page-general__contact-page">
+        <div class="page-general__miga page-general__miga--recipes">
+            {% include "partial/breadcrumb.twig" %}
+        </div><!-- miga -->
+        <div class="container">
+            <div class="row row-parent row-parent--forms">
+                <div class="col-12 col-lg-5">
+                    <div class="main-title">
+                        {% if post.parent %}
+                            <h1>{{ post.parent.title }}</h1>
+                            {{ post.parent.content }}
+                        {% else %}
+                            <h1>{{ post.title }}</h1>
+                            {{ post.content }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-lg-7">
+                    {% include "partial/mini-nav-contact.twig" %}
+                    <div class="form-box">
+                        <div class="back">
+                            <a href="{{ post.parent.link }}"><img src="../assets/images/back.svg" alt="ico"> Volver</a>
+                        </div>
+
+                        {% include 'partial/contact/page-title.twig' %}
+
+                        <form class="row hide-with-success-message"  method="post" action="{{ admin_url('admin-ajax.php') }}" id="consumer-step-2" enctype="multipart/form-data">
+                            <input type="hidden" name="action" value="save_information">
+                            <input type="hidden" name="post_id" value="{{ post.id }}">
+
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input type="text" name="full_name" placeholder="Nombres y Apellidos" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="select-style">
+                                    <select name="document_type" required>
+                                        <option value="">Tipo de documento</option>
+                                        <option value="CC">CC</option>
+                                        <option value="CE">CE</option>
+                                        <option value="NIT">NIT</option>
+                                        <option value="PAS">PAS</option>
+                                        <option value="Otros">Otros</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input type="number" name="document" placeholder="Número de documento" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="select-style">
+                                    <select name="department" id="department" required>
+                                        <option value="">Departamento</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="select-style">
+                                    <select name="municipality" id="municipality" required>
+                                        <option value="">Municipio</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input type="number" placeholder="Teléfono de contacto" name="phone_number">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input  type="email" name="email" placeholder="Correo electrónico" required>
+                                </div>
+                            </div>
+  
+
+                            <div class="col-12 col-md-12">
+                                <div class="box-input">
+                                    <textarea name="message" placeholder="Motivo de tu contacto"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-12">
+                                <div class="parent-check">
+                                    <input type="checkbox" id="AUTORIZO" name="tycs" value="SI" required="required"/>
+                                    <label for="AUTORIZO">Acepto las <a href="https://storage.googleapis.com/portal-contenido-novaventa.appspot.com/estaticos/politica_tratmiento_dato_personales.pdf" target="_blank">políticas de manejo y tratamiento de datos</a></label>
+                                </div>
+
+                                <div class="col-btn">
+                                    <button class="btn-form">ENVIAR</button>
+                                    <div class="ajax-message alert alert-danger" style="display:none"></div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="response" style="display:none">
+                            <picture>
+                                <img src="../assets/images/ico_infogeneral.svg" alt="image">
+                            </picture>
+                            <h3>¡Gracias por enviar tus comentarios!</h3>
+                            <span class="ajax-response">Tu opinión es muy importante para nosotros, el mensaje se ha enviado con éxito y se ha creado con el radicado</span>
+                            <button class="btn-back" onclick="document.location.href='{{ post.parent.link }}';">VOLVER</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

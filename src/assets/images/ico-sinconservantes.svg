@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="92px" height="92px" viewBox="0 0 92 92" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ico-sinconservantes</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.101961 0 0 0 0 0.486275 0 0 0 0 0.525490 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+        <polygon id="path-2" points="0 0 26.1818182 0 26.1818182 26.4827586 0 26.4827586"></polygon>
+        <polygon id="path-4" points="0 0 9.81818182 0 9.81818182 24.8275862 0 24.8275862"></polygon>
+    </defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="03_Interna-Productos_Salmón-Natural-" transform="translate(-290.000000, -957.000000)">
+            <g id="Atributos" transform="translate(246.000000, 957.000000)">
+                <g id="ico-sinconservantes" transform="translate(44.000000, 0.000000)">
+                    <g filter="url(#filter-1)" id="Group-9">
+                        <g transform="translate(26.000000, 22.000000)">
+                            <g id="Group-3" transform="translate(13.090909, 21.517241)">
+                                <mask id="mask-3" fill="white">
+                                    <use xlink:href="#path-2"></use>
+                                </mask>
+                                <g id="Clip-2"></g>
+                                <path d="M1.24776017,24.4920006 C1.24776017,24.4920006 -8.43993495,1.53924588 26.1724127,0 C26.1724127,0 27.4076722,25.6074541 2.48678189,26.4830252 C2.48678189,26.4830252 7.00645221,16.4319495 18.7570934,3.9394033 C18.7570934,3.9394033 4.50332736,17.7406417 1.24776017,24.4920006" id="Fill-1" fill="#FFFFFF" mask="url(#mask-3)"></path>
+                            </g>
+                            <g id="Group-6" transform="translate(16.363636, 0.000000)">
+                                <mask id="mask-5" fill="white">
+                                    <use xlink:href="#path-4"></use>
+                                </mask>
+                                <g id="Clip-5"></g>
+                                <path d="M4.04926478,24.8275862 C4.04926478,24.8275862 10.1369012,21.7247013 9.80509458,11.1008713 C9.47441652,0.477041243 7.89664199,-0.000955994474 7.89664199,-0.000955994474 C7.89664199,-0.000955994474 -5.12394791,10.622874 2.27398629,24.8275862 C2.27398629,24.8275862 2.81006848,14.3239383 4.90925346,10.1462425 C4.90925346,10.1462425 2.86536959,19.2172643 4.04926478,24.8275862" id="Fill-4" fill="#FFFFFF" mask="url(#mask-5)"></path>
+                            </g>
+                            <path d="M14.8637002,28.403834 L18,25.1703165 C18,25.1703165 12.16042,16.363924 0.265987471,13.2413793 C0.265987471,13.2413793 -2.76267603,26.6206161 11.619764,34.7586207 L13.4582419,30.0760792 C13.4582419,30.0760792 6.34310967,26.2596356 4.91538185,20.2658294 C4.91538185,20.2658294 9.78128609,27.6231978 14.8637002,28.403834" id="Fill-7" fill="#FFFFFF"></path>
+                        </g>
+                    </g>
+                    <circle id="Oval" stroke="#1A7C86" stroke-width="2" cx="46" cy="46" r="45"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,140 @@
+{% block html_head_container %}
+{% include 'html-header.twig' %}
+    {% block head %}
+    {% endblock %}
+    </head>
+{% endblock %}
+    <body class="{{body_class}} page-general" data-template="base.twig">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZ8JNXN"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+        {% if fn('is_front_page') == false %}
+            {% set classheader = 'header-int' %}
+        {% endif %}
+        <div class="modals__search">
+            <div class="cap-search"></div>
+            <a href="#" style="z-index:20;" class="close-search"><img src="../assets/images/ico-cerrar.svg" alt="images"></a>
+            <div class="container">
+                <h2>¿Qué estás buscando?</h2>
+                <form action="{{ site.link }}">
+                    <i class="lni lni-search-alt"></i>
+                    <input type="text" name="s" placeholder="Ingresa tu búsqueda">
+                    <button>BUSCAR</button>
+                </form>
+            </div>
+        </div>
+        <header class="header {{ classheader }}">
+        
+            {% block header %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8 col-md333-8 col-nav">
+                            {% if function('is_front_page') %}
+                            <h1>
+                                <a href="{{ site.link }}">
+                                    <img src="../assets/images/pietran-con-conservantes-naturales.png" alt="image">
+                                </a>
+                            </h1>
+                            {% else %}
+                                <a href="{{ site.link }}">
+                                    <img src="../assets/images/pietran-con-conservantes-naturales.png" alt="image">
+                                </a>
+                            {% endif %}
+                            <nav id="nav-main" class="nav-main" role="navigation">
+                                {% include "partial/menu.twig" with {'menu': menu.get_items} %}
+                            </nav><!-- #nav -->
+                        </div>
+                        <div class="col-8 col-md-4 col-social">
+                            <form action="{{ site.link }}">
+                                <button><i class="lni lni-search-alt"></i></button>
+                                <input type="text" placeholder="Buscar" name="s">
+                            </form>
+                            <div class="social">
+                                {% if facebook_url %}
+                                    <a href="{{ facebook_url }}" target="_blank"><img src="../assets/images/facebook-pietran.svg" alt="Página de Facebook de Pietrán"></a>
+                                {% endif %}
+
+                                {% if instagram_url %}
+                                    <a href="{{ instagram_url }}" target="_blank"><img src="../assets/images/instagram-pietran.svg" alt="Página de Instagram de Pietrán"></a>
+                                {% endif %}
+
+                                {% if youtube_url %}
+                                    <a href="{{ youtube_url }}" target="_blank"><img src="../assets/images/youtubep.svg" alt="Canal de Youtube de Pietrán"></a> 
+                                {% endif %}          
+                            </div>
+                            <div class="social-dark">
+                                {% if facebook_url %}
+                                    <a href="{{ facebook_url }}" target="_blank"><img src="../assets/images/facebookg.svg" alt="Página de Facebook de Pietrán"></a>
+                                {% endif %}
+
+                                {% if instagram_url %}
+                                    <a href="{{ instagram_url }}" target="_blank"><img src="../assets/images/instagramg.svg" alt="Página de Instagram de Pietrán"></a>
+                                {% endif %}
+
+                                {% if youtube_url %}
+                                    <a href="{{ youtube_url }}" target="_blank"><img src="../assets/images/youtubeg.svg" alt="Canal de Youtube de Pietrán"></a>
+                                {% endif %}     
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-4 search-col">
+                            <div class="search-btn"><i class="lni lni-search-alt"></i></div>
+                            <div class="hamburger">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+            {% include "partial/products/product-menu.twig"%}
+        </header>
+
+        <div class="menu-mobile">
+            <div class="container">
+                <nav id="nav-main" class="nav-main" role="navigation">
+                    {% include "partial/menu.twig" with {'menu': menu.get_items} %}
+                </nav><!-- #nav -->
+            </div>
+            <div class="social-mobile-nav">
+                <div class="container">
+                    <div class="social">
+                        {% if facebook_url %}
+                            <a href="{{ facebook_url }}"><img src="../assets/images/facebook-pietran.svg" alt="Página de Facebook de Pietrán"></a>
+                        {% endif %}
+
+                        {% if instagram_url %}
+                            <a href="{{ instagram_url }}"><img src="../assets/images/instagram-pietran.svg" alt="icon"></a>
+                        {% endif %}
+
+                        {% if youtube_url %}
+                            <a href="{{ youtube_url }}"><img src="../assets/images/youtubep.svg" alt="icon"></a>
+                        {% endif %}         
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="content" role="main" class="content-wrapper">
+            <div class="wrapper {{sidebar_class}}">
+                {% block content %}
+                    Sorry, no content
+                {% endblock %}
+            </div>
+        </section>
+
+        {% block footer %}
+            <footer id="footer">
+                {% include 'footer.twig' %}
+            </footer>
+
+            <script>
+                let themeLink = "{{ theme.link }}";
+                let siteLink = "{{ site.link }}";
+            </script>
+
+            {{ function('wp_footer') }}
+        {% endblock %}
+    </body>
+</html>

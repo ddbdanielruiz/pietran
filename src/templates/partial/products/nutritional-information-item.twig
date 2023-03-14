@@ -1,0 +1,259 @@
+<div class="item tabs-content">
+    <div class="parent-filter-nav-tabs">
+        <div class="filter-nav-tabs parent-tabs">
+            <ul>
+                <li class="active"><a href="#">Información nutricional</a></li>
+
+                {% if presentation.activar_tabla_nutricional == 'Sí' %}
+                    <li><a href="#">Tabla nutricional</a></li>
+                {% endif %}
+            </ul>
+            <i class="active-marker"></i>
+        </div>
+    </div>
+    <div class="parent-items-tabs">
+        <div class="box-tabs">
+            <h2>Información nutricional</h2>
+            <div class="parent-nutricional">
+                {% set background_image = Image(presentation.imagen_de_fondo) %}
+                <div class="image" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50">
+                    <picture>
+                        <source srcset="{{ background_image.src|resize(607, 607)|towebp(100) }}" type="image/webp">
+                        <source srcset="{{ background_image.src|resize(607, 607)|tojpg }}" type="image/jpeg">
+
+                        <img src="{{ background_image.src }}" alt="{{ background_image.alt }}" loading="lazy">
+                    </picture>
+                </div>
+                <div class="text-info">
+                    <div class="row" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+                        <div class="col-12 col-img-only-mobile">
+                            <picture>
+                                {% set background_image = Image(presentation.imagen_de_fondo) %}
+
+                                <source srcset="{{ background_image.src|resize(607, 607)|towebp(100) }}" type="image/webp">
+                                <source srcset="{{ background_image.src|resize(607, 607)|tojpg }}" type="image/jpeg">
+
+                                <img src="{{ background_image.src }}" alt="{{ background_image.alt }}" loading="lazy">
+                            </picture>
+                        
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="card-top">
+                                <div class="parent">
+                                    <div class="top">
+                                        <picture>
+                                            <img src="../../../assets/images/ico-peso.svg" alt="ico">
+                                        </picture>
+                                        Tamaño porción
+                                    </div>
+                                    <h3>{{ presentation.tamano_porcion }} unidad{% if presentation.tamano_porcion|number_format != 1 %}es{% endif %}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="card-top">
+                                <div class="parent">
+                                    <div class="top">
+                                        <picture>
+                                            <img src="../../../assets/images/calorias.svg" alt="ico">
+                                        </picture>
+                                        Calorías
+                                    </div>
+                                    <h3>{{ presentation.calorias }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="card-top">
+                                <div class="parent">
+                                    <div class="top">
+                                        <picture>
+                                            <img src="../../../assets/images/grasa.svg" alt="ico">
+                                        </picture>
+                                        Calorías de grasa
+                                    </div>
+                                    <h3>{{ presentation.calorias_de_grasa }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if presentation.grafico_circular|length > 0 %}
+                        <div class="circle-loads" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+
+                            {% for chart in presentation.grafico_circular  %}
+                                <div class="single-chart">
+                                    <svg viewBox="0 0 36 36" class="circular-chart {{ chart.color }}">
+                                    <path class="circle-bg"
+                                        d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    />
+                                    <path class="circle"
+                                        stroke-dasharray="{{ chart.porcentaje }}, 100"
+                                        d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    />
+                                    <text x="18" y="20.35" class="percentage">{{ chart.contenido }}</text>
+                                    </svg>
+                                    <h3>{{ chart.texto }}</h3>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="row row-bottom" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+                        {% for box in presentation.cajas  %}
+                            <div class="col-12 col-md-2">
+                                <div class="box">
+                                    <div class="text">
+                                        <h3>{{ box.titulo }}</h3>
+                                        <h2>{{ box.contenido }}</h2>
+                                    </div>
+                                    <div class="bottom">
+                                        {{ box.texto_inferior }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    {% if presentation.barra_horizontal %}
+                        <div class="bar-only" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+                            <div class="fill" style="width: {{ presentation.barra_horizontal|number_format }}%; background: {{ presentation.color_de_la_barra }};"></div>
+                        </div>
+                    {% endif %}
+
+                    {% if presentation.texto_inferior %}
+                        <div class="small-info" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+                            {{ presentation.texto_inferior }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="box-tabs" style="display: none;">
+            <h2>Tabla nutricional</h2>
+            {% if presentation.activar_tabla_nutricional == 'Sí' %}
+                <div class="parent-nutricional">
+                    {% set background_image = Image(presentation.tabla_nutricional_imagen_de_fondo) %}
+                    <div class="image" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="50">
+                        <picture>
+                            <source srcset="{{ background_image.src|resize(607, 607)|towebp(100) }}" type="image/webp">
+                            <source srcset="{{ background_image.src|resize(607, 607)|tojpg }}" type="image/jpeg">
+
+                            <img src="{{ background_image.src }}" alt="{{ background_image.alt }}" loading="lazy">
+                        </picture>
+                    </div>
+                    <div class="text-info">
+                        <div class="row" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+                            <div class="col-12 col-img-only-mobile">
+                                <picture>
+                                    {% set background_image = Image(presentation.tabla_nutricional_imagen_de_fondo) %}
+
+                                    <source srcset="{{ background_image.src|resize(607, 607)|towebp(100) }}" type="image/webp">
+                                    <source srcset="{{ background_image.src|resize(607, 607)|tojpg }}" type="image/jpeg">
+
+                                    <img src="{{ background_image.src }}" alt="{{ background_image.alt }}" loading="lazy">
+                                </picture>
+                            
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="card-top">
+                                    <div class="parent">
+                                        <div class="top">
+                                            <picture>
+                                                <img src="../../../assets/images/ico-peso.svg" alt="ico">
+                                            </picture>
+                                            Tamaño porción
+                                        </div>
+                                        <h3>{{ presentation.tabla_nutricional_tamano_porcion }} unidad{% if presentation.tabla_nutricional_tamano_porcion|number_format != 1 %}es{% endif %}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="card-top">
+                                    <div class="parent">
+                                        <div class="top">
+                                            <picture>
+                                                <img src="../../../assets/images/calorias.svg" alt="ico">
+                                            </picture>
+                                            Calorías
+                                        </div>
+                                        <h3>{{ presentation.tabla_nutricional_calorias }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="card-top">
+                                    <div class="parent">
+                                        <div class="top">
+                                            <picture>
+                                                <img src="../../../assets/images/grasa.svg" alt="ico">
+                                            </picture>
+                                            Calorías de grasa
+                                        </div>
+                                        <h3>{{ presentation.tabla_nutricional_calorias_de_grasa }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if presentation.tabla_nutricional_grafico_circular|length > 0 %}
+                            <div class="circle-loads" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+
+                                {% for chart in presentation.grafico_circular  %}
+                                    <div class="single-chart">
+                                        <svg viewBox="0 0 36 36" class="circular-chart {{ chart.color }}">
+                                        <path class="circle-bg"
+                                            d="M18 2.0845
+                                            a 15.9155 15.9155 0 0 1 0 31.831
+                                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        />
+                                        <path class="circle"
+                                            stroke-dasharray="{{ chart.porcentaje }}, 100"
+                                            d="M18 2.0845
+                                            a 15.9155 15.9155 0 0 1 0 31.831
+                                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        />
+                                        <text x="18" y="20.35" class="percentage">{{ chart.contenido }}</text>
+                                        </svg>
+                                        <h3>{{ chart.texto }}</h3>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="row row-bottom" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+                            {% for box in presentation.tabla_nutricional_cajas  %}
+                                <div class="col-12 col-md-2">
+                                    <div class="box">
+                                        <div class="text">
+                                            <h3>{{ box.titulo }}</h3>
+                                            <h2>{{ box.contenido }}</h2>
+                                        </div>
+                                        <div class="bottom">
+                                            {{ box.texto_inferior }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        {% if presentation.tabla_nutricional_barra_horizontal %}
+                            <div class="bar-only" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+                                <div class="fill" style="width: {{ presentation.barra_horizontal|number_format }}%; background: {{ presentation.tabla_nutricional_color_de_la_barra }};"></div>
+                            </div>
+                        {% endif %}
+
+                        {% if presentation.tabla_nutricional_texto_inferior %}
+                            <div class="small-info" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+                                {{ presentation.tabla_nutricional_texto_inferior }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

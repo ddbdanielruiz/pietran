@@ -1,0 +1,61 @@
+{% set recommended_recipes = post.meta('recetas_recomendadas') %}
+{% if recommended_recipes %}
+    <div class="page-general__recommended-recipes" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100">
+        <div class="container">
+            <h2><span>Recetas</span> recomendadas</h2>
+            <div class="row">
+                {% for recommended in recommended_recipes %}
+                    <div class="col-12 col-md-4">
+                        <a href="{{ recommended.link }}" class="box">
+                            <div class="info-text">
+                                <div class="image-box">
+                                    {% set featured = recommended.thumbnail %}
+                                    <picture>
+                                        <source srcset="{{ featured.src|resize(332, 240)|towebp(100) }}" type="image/webp">
+                                        <source srcset="{{ featured.src|resize(332, 240)|tojpg }}" type="image/jpeg">
+                                        <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                                    </picture>
+                                </div>
+                                <div class="start-section">
+                                        {% set rating = fn('wp_rating_average_by_object_id', recommended.id) %}
+                                        {% include 'partial/rating/stars.twig' %}
+                                </div>
+                                <h3>{{ recommended.title }}</h3>
+                            </div>
+                            <span class="btn-recipes">Ver receta  <img src="../../assets/images/ver.svg" alt="icon" loading="lazy"></span>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="mobile-slider-recipes-home">
+                <div class="owl-carousel owl-themes">
+                    {% for recommended in recommended_recipes %}
+                        <div class="item">
+                            <a href="{{ recommended.link }}" class="box">
+                                <div class="info-text">
+                                    <div class="image-box">
+                                        {% set featured = recommended.thumbnail %}
+                                        <picture>
+                                            <source srcset="{{ featured.src|resize(332, 240)|towebp(100) }}" type="image/webp">
+                                            <source srcset="{{ featured.src|resize(332, 240)|tojpg }}" type="image/jpeg">
+                                            <img src="{{ featured.src }}" alt="{{ featured.alt }}" loading="lazy">
+                                        </picture>
+                                    </div>
+                                    <div class="start-section">
+                                        {% set rating = fn('wp_rating_average_by_object_id', recommended.id) %}
+                                        {% include 'partial/rating/stars.twig' %}
+                                    </div>
+                                    <h3>{{ recommended.title }}</h3>
+                                </div>
+                                <span class="btn-recipes">Ver receta  <img src="../../assets/images/ver.svg" alt="icon" loading="lazy"></span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="btn-middle">
+                <a href="{{ recipe_page.link }}" class="btn-recipes btn-recipes--big">VER TODAS LAS RECETAS</a>
+            </div>
+        </div>
+    </div>
+{% endif %}

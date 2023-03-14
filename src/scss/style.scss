@@ -1,0 +1,45 @@
+// fonts links
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://use.fontawesome.com/releases/v5.3.1/css/all.css');
+@import url('https://cdn.linearicons.com/free/1.0.0/icon-font.min.css');
+@import url('https://cdn.lineicons.com/2.0/LineIcons.css');
+@import url('https://unpkg.com/leaflet@1.7.1/dist/leaflet.css');
+
+// Configuration and helpers
+@import 'abstracts/_variables';
+@import 'abstracts/_media-queries';
+@import 'abstracts/_mixins';
+
+// Vendors
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import '~owl.carousel/dist/assets/owl.carousel.css';
+@import '~aos/dist/aos.css';
+@import '~bootstrap-slider/dist/css/bootstrap-slider.css';
+@import '~malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css';
+
+// Base stuff
+@import 'base/_base';
+@import 'base/_helpers';
+@import 'base/_typography';
+@import 'base/_mixins_animations';
+@import 'base/_style-wordpress';
+@import 'base/_animations';
+@import 'base/_typography';
+
+// Layout-related sections
+@import 'layout/_header';
+@import 'layout/_footer';
+
+// Components
+@import 'components/_btns';
+@import 'components/_modal';
+@import 'components/_form';
+@import 'components/_checks';
+
+// Page-specific styles
+@import 'pages/_home';
+@import 'pages/_generals';
+@import 'pages/_components';
+@import 'pages/_404';
+
+// Single-specific styles

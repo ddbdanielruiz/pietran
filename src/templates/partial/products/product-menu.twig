@@ -1,0 +1,85 @@
+<div class="products-hidden">
+    <div class="container">
+        <div class="row">
+        
+            {% for term in product_categories if term.posts(1, 'producto')|length == 1 %}
+                {% set term_image = Image(term.meta('imagen')) %}
+
+                <div class="col-12 col-md-2">
+                    <a href="#{{ term.name|lower|replace({' ': '-'}) }}" class="scrollLink">
+                        <div class="box-main" style="background: {{ term.meta('color') }};">
+                            <picture>
+                                <source srcset="{{ term_image.src|resize(198, 198)|towebp(100) }}" type="image/webp">
+                                <source srcset="{{ term_image.src|resize(198, 198)|tojpg }}" type="image/jpeg">
+
+                                <img src="{{ term_image.src }}" alt="{{ term_image.alt }}" loading="lazy">
+                            </picture>
+
+                            <div class="title-mini">
+                                <h3>{{ term.name }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <form method="post" action="{{ admin_url('admin-ajax.php') }}" class="recipes-mobile-filters">
+        <div class="page-general__buttons-mobile-filter">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <a href="#" class="btn-mobile-fil btn-filter">
+                            <img src="../../../assets/images/filtro.svg" alt="ico" loading="lazy">
+                            FILTRAR
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <div class="order-parent">
+                            <a href="#" class="btn-mobile-fil btn-order">
+                                <img src="../../../assets/images/ordenar.svg" alt="ico" loading="lazy">
+                                ORDENAR
+                            </a>
+                            <div class="parent-check">
+                                <div class="checksparent">
+                                    <div class="check">
+                                        <input type="checkbox" id="m2-order-asc" value="asc" data-name="A-Z" data-type="order" class="order-filter" name="order">
+                                        <label for="m2-order-asc">A-Z</label>
+                                    </div>
+                                    <div class="check">
+                                        <input type="checkbox" id="m2-order-desc" value="desc" data-name="Z-A" data-type="order" class="order-filter" name="order">
+                                        <label for="m2-order-desc">Z-A</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="container slider-fixed">
+        <div class="owl-carousel owl-themes">
+            {% for term in product_categories if term.posts(1, 'producto')|length == 1 %}
+                <div class="items recipe-card-filter" data-id="{{ term.id }}">
+
+                    <div class="box-main" style="background: {{ term.meta('color') }};">
+                        {% set term_image = Image(term.meta('imagen')) %}
+
+                        <picture>
+                            <source srcset="{{ term_image.src|resize(198, 198)|towebp(100) }}" type="image/webp">
+                            <source srcset="{{ term_image.src|resize(198, 198)|tojpg }}" type="image/jpeg">
+
+                            <img src="{{ term_image.src }}" alt="{{ term_image.alt }}" loading="lazy">
+                        </picture>
+
+                        <div class="title-mini">
+                            <h3>{{ term.name }}</h3>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

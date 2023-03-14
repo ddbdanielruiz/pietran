@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="25px" viewBox="0 0 26 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ico-cerrar</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.101961 0 0 0 0 0.486275 0 0 0 0 0.525490 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="ico-cerrar" transform="translate(-1376.000000, -48.000000)" filter="url(#filter-1)">
+            <g transform="translate(1389.000000, 60.000000) scale(-1, -1) translate(-1389.000000, -60.000000) translate(1377.000000, 48.000000)">
+                <line x1="23.4782609" y1="0.595300261" x2="0.52173913" y2="22.9660574" id="Line-Copy" stroke="#F2F2F2" stroke-width="1.4381201"></line>
+                <line x1="23.5" y1="22.9347258" x2="0.52173913" y2="0.595300261" id="Line-Copy-2" stroke="#F2F2F2" stroke-width="1.4381201"></line>
+            </g>
+        </g>
+    </g>
+</svg>

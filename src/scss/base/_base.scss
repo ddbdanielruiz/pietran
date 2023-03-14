@@ -1,0 +1,52 @@
+:root {
+  //new font
+  --font: 'Poppins';
+  --avant: 'ITC Avant Garde Gothic Std Book';
+  --avantmedium: 'ITC Avant Garde Gothic Std Medium';
+  --avantbold: 'ITC Avant Garde Gothic Std Bold';
+  --avantlight: 'ITC Avant Garde Gothic Std Extra Light';
+
+  //new color
+  --black2a: #2a1605;
+  --backcolor: #2a1605;
+  --red: #d6121a;
+  --red-dark: #8a0a0f;
+  --whitef4: #f4f4e8;
+  --white-h2: #e9e8d7;
+
+  --white: #fff;
+  --green: #1C6047;
+  --green1e: #1E634A;
+  --greenc7: #C7DA78;
+  --blue: #1A7C86;
+  --blue12: #12565D;
+  --silver: #4C4C4C;
+  --silverFA: #FAFAFA;
+  --silver68: #686868;
+  --silverf7: #F7F7F7;
+  --black2d: #2D2D2D;
+  --brown: #815514;
+  --EA: #EAE2C2;
+  --orange: #F28F1D;
+
+  font-size: 62.5%;
+}
+
+html {
+  box-sizing: border-box;
+
+  font-size: 62.5%; // 10px/16px = 62.5% => 1rem = 10px
+
+  width: 100vw;
+  overflow-x: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+body {
+  overflow: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+.scroll-none {
+  overflow-y: hidden;
+}
+
+

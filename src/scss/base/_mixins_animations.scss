@@ -1,0 +1,13 @@
+@mixin easeOutSine($element, $velocity, $delay) {
+  -webkit-transition: $element $velocity cubic-bezier(0.000, 0.000, 0.580, 1.000) $delay; 
+  -moz-transition: $element $velocity cubic-bezier(0.000, 0.000, 0.580, 1.000) $delay; 
+  -o-transition: $element $velocity cubic-bezier(0.000, 0.000, 0.580, 1.000) $delay; 
+  transition: $element $velocity cubic-bezier(0.000, 0.000, 0.580, 1.000) $delay;
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}  
+}

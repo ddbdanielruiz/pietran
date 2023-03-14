@@ -1,0 +1,197 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="page-general__contact-page">
+        <div class="page-general__miga page-general__miga--recipes">
+            {% include "partial/breadcrumb.twig" %}
+        </div><!-- miga -->
+        <div class="container">
+            <div class="row row-parent row-parent--forms">
+                <div class="col-12 col-lg-5">
+                    <div class="main-title">
+                        {% if post.parent %}
+                            <h1>{{ post.parent.title }}</h1>
+                            {{ post.parent.content }}
+                        {% else %}
+                            <h1>{{ post.title }}</h1>
+                            {{ post.content }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-lg-7">
+                    {% include "partial/mini-nav-contact.twig" %}
+                    <div class="form-box">
+                        <div class="back">
+                            <a href="{{ post.parent.link }}"><img src="../assets/images/back.svg" alt="ico"> Volver</a>
+                        </div>
+
+                        {% include 'partial/contact/page-title.twig' %}
+
+                        <form class="row hide-with-success-message"  method="post" action="{{ admin_url('admin-ajax.php') }}" id="consumer-step-2" enctype="multipart/form-data">
+                            <input type="hidden" name="action" value="save_new_seller">
+                            <input type="hidden" name="post_id" value="{{ post.id }}">
+
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input type="text" name="name" placeholder="Nombres y Apellidos o Razón Social" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input type="text" placeholder="Nombre Establecimiento Comercial" name="comercial_establishment" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="select-style">
+                                    <select name="document_type" required>
+                                        <option value="">Tipo de documento</option>
+                                        <option value="CC">CC</option>
+                                        <option value="CE">CE</option>
+                                        <option value="NIT">NIT</option>
+                                        <option value="PAS">PAS</option>
+                                        <option value="Otros">Otros</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input type="number" name="document" placeholder="Número de documento" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="select-style">
+                                    <select name="department" id="department" required>
+                                        <option value="">Departamento</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="select-style">
+                                    <select name="municipality" id="municipality" required>
+                                        <option value="">Municipio</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input type="text" name="neighborhood" placeholder="Barrio" required>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input type="text" name="address" placeholder="Dirección" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input type="number" placeholder="Teléfono de contacto (Opcional)" name="landline_number">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input type="number" placeholder="Teléfono Celular" name="cell_phone" required>
+                                </div>
+                            </div>          
+        
+                            <div class="col-12 col-md-6">
+                                <div class="box-input">
+                                    <input  type="email" name="email" placeholder="Correo electrónico" required>
+                                </div>
+                            </div>
+  
+                            <div class="col-12 col-md-6">
+                                <div class="select-style">
+                                    <select name="business_type" id="business_type" required>
+                                        <option value="">Tipo de negocio</option>
+
+                                        <option value="Tienda">Tienda</option>
+                                        <option value="Minimercado">Minimercado</option>
+                                        <option value="Granero">Granero</option>
+                                        <option value="Quesera">Quesera</option>
+                                        <option value="Avicola y carnicerías">Avicola y carnicerías</option><option value="Panaderías">Panaderías</option><option value="Restaurante">Restaurante</option><option value="Cafetería">Cafetería</option><option value="Carro Perrero">Carro Perrero</option><option value="Comidas rápida">Comidas rápida</option><option value="Mayorista">Mayorista</option><option value="Salsamentaria">Salsamentaria</option><option value="Charcutería">Charcutería</option><option value="Licorera-Cigarrería-Estanquillo">Licorera-Cigarrería-Estanquillo</option><option value="Autoservicio">Autoservicio</option><option value="Maquinas Vending">Maquinas Vending</option>
+                                        <option value="Ecommerce">Ecommerce</option><option value="Ventas en hogar">Ventas en hogar</option><option value="Otro">Otro</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="select-style">
+                                    <select name="operating_time" id="operating_time" required>
+                                        <option value="">¿Hace cuánto tiempo se encuentra operando el negocio?</option>
+
+                                        <option value="1 a 6 meses">1 a 6 meses</option>
+                                        <option value="6 meses a 1 año">6 meses a 1 año</option>
+                                        <option value="Mayor a 1 año">Mayor a 1 año</option>
+                                        <option value="Aún no se ha dado apertura al negocio">Aún no se ha dado apertura al negocio</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="select-style">
+                                    <select name="number_of_cash_registers" id="number_of_cash_registers" required>
+                                        <option value="">¿Cuántas cajas registradoras tiene en el negocio?</option>
+
+                                        <option value="1">1</option>
+                                        <option value="2">2</option><option value="mas de 2">mas de 2</option>
+                                        <option value="no tiene caja registradora">no tiene caja registradora</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="select-style">
+                                    <select name="exhibicion" id="exhibicion" required>
+                                        <option value="">¿Cómo se realiza la exhibición en el negocio?</option>
+
+                                        <option value="Mostrador (Tipo tienda)">Mostrador (Tipo tienda)</option>
+                                        <option value="Góndola/Estantería (Tipo autoservicio)">Góndola/Estantería (Tipo autoservicio)</option>
+                                    </select>
+                                    <span class="lnr lnr-chevron-down"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-md-12">
+                                <div class="box-input">
+                                    <textarea name="observations" placeholder="¿Tienes algún comentario u observación adicional?"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-12">
+                                <div class="parent-check">
+                                    <input type="checkbox" id="AUTORIZO" name="tycs" value="SI" required="required"/>
+                                    <label for="AUTORIZO">Acepto las <a href="https://storage.googleapis.com/portal-contenido-novaventa.appspot.com/estaticos/politica_tratmiento_dato_personales.pdf" target="_blank">políticas de manejo y tratamiento de datos</a></label>
+                                </div>
+                                <div class="col-btn">
+                                    <button class="btn-form">ENVIAR</button>
+                                    <div class="ajax-message alert alert-danger" style="display:none"></div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="response" style="display:none">
+                            <picture>
+                                <img src="../assets/images/ico_vender.svg" alt="image">
+                            </picture>
+                            <h3>¡Gracias por enviar tus comentarios!</h3>
+                            <span class="ajax-response">Tu opinión es muy importante para nosotros, el mensaje se ha enviado con éxito y se ha creado con el radicado</span>
+                            <button class="btn-back" onclick="document.location.href='{{ post.parent.link }}';">VOLVER</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
